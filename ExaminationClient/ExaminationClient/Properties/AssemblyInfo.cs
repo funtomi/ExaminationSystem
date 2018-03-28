@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("ExaminationSystem")]
+[assembly: AssemblyTitle("ExaminationClient")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ExaminationSystem")]
+[assembly: AssemblyProduct("ExaminationClient")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("4bd2cd3f-60b3-4d13-b5b4-c0aa49c47b6e")]
+[assembly: Guid("6fe14b33-b357-4169-b977-7cfca4ba5425")]
 
 // 程序集的版本信息由下面四个值组成: 
 //
