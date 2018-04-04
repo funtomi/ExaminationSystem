@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExaminationServer", "ExaminationServer\ExaminationServer.csproj", "{4CA405AE-9246-44DB-A6EB-3A1C45CCE6D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfServiceLibrary1", "WcfServiceLibrary1\WcfServiceLibrary1.csproj", "{41A3F79A-3771-4BD7-9FA3-07F6A8962706}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4CA405AE-9246-44DB-A6EB-3A1C45CCE6D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CA405AE-9246-44DB-A6EB-3A1C45CCE6D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CA405AE-9246-44DB-A6EB-3A1C45CCE6D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CA405AE-9246-44DB-A6EB-3A1C45CCE6D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41A3F79A-3771-4BD7-9FA3-07F6A8962706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41A3F79A-3771-4BD7-9FA3-07F6A8962706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41A3F79A-3771-4BD7-9FA3-07F6A8962706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41A3F79A-3771-4BD7-9FA3-07F6A8962706}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

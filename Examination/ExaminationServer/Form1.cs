@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ExaminationClient {
-    public partial class Form1 : Form {
+namespace ExaminationServer {
+    public partial class Form1 : BaseForm {
         public Form1() {
             InitializeComponent();
         }
