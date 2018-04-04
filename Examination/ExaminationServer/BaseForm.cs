@@ -21,11 +21,25 @@ namespace ExaminationServer {
 
         private void BaseForm_Load(object sender, EventArgs e) {
             skinEngine1.SkinFile = "MSN.ssk";
-            _service.StartService(); 
+            try {
+            _service.StartService();
+            toolStripStatusLabel1.Text = "服务已开启。";
+            } catch (Exception ex) {
+                toolStripStatusLabel1.Text = ex.Message;
+            }
         }
 
-        private void BaseForm_FormClosed(object sender, FormClosedEventArgs e) {
+        private void BaseForm_FormClosed(object sender, FormClosedEventArgs e) { 
             _service.CloseService();
         }
+
+        private void menuItemQuerySubject_Click(object sender, EventArgs e) {
+            this.panelChild.Controls.Clear();
+            SubjectQueryCtrl ctrl = new SubjectQueryCtrl ();
+            ctrl.Service = _service;
+            ctrl.Dock = DockStyle.Fill;
+            this.panelChild.Controls.Add(ctrl);
+        }
+         
     }
 }

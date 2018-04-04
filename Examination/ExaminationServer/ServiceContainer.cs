@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ExaminationServer {
-    class ServiceContainer {
+    public class ServiceContainer {
 
         /// <summary>
         /// 服务宿主
@@ -45,7 +45,7 @@ namespace ExaminationServer {
         /// 关闭服务
         /// </summary>
         public void CloseService() {
-            if (_host != null) {
+            if (_host != null&&_host.State == CommunicationState.Opened) {
                 _host.Close();
             }  
         }

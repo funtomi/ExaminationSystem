@@ -23,12 +23,23 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.skinEngine1 = new Sunisoft.IrisSkin.SkinEngine();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.题库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemAddSubject = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemQuerySubject = new System.Windows.Forms.ToolStripMenuItem();
+            this.基础信息维护ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemSubjectType = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemSubjectLevel = new System.Windows.Forms.ToolStripMenuItem();
+            this.用户管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemUserRegister = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemUserScoreInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelChild = new System.Windows.Forms.Panel();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -59,37 +70,110 @@
             this.skinEngine1.SerialNumber = "";
             this.skinEngine1.SkinFile = null;
             // 
-            // textBox1
+            // menuStrip1
             // 
-            this.textBox1.Location = new System.Drawing.Point(91, 104);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(175, 25);
-            this.textBox1.TabIndex = 1;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.题库ToolStripMenuItem,
+            this.基础信息维护ToolStripMenuItem,
+            this.用户管理ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(659, 28);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // button1
+            // 题库ToolStripMenuItem
             // 
-            this.button1.Location = new System.Drawing.Point(305, 103);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.题库ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemAddSubject,
+            this.menuItemQuerySubject});
+            this.题库ToolStripMenuItem.Name = "题库ToolStripMenuItem";
+            this.题库ToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.题库ToolStripMenuItem.Text = "题库录入";
+            // 
+            // menuItemAddSubject
+            // 
+            this.menuItemAddSubject.Name = "menuItemAddSubject";
+            this.menuItemAddSubject.Size = new System.Drawing.Size(180, 26);
+            this.menuItemAddSubject.Text = "新增";
+            // 
+            // menuItemQuerySubject
+            // 
+            this.menuItemQuerySubject.Name = "menuItemQuerySubject";
+            this.menuItemQuerySubject.Size = new System.Drawing.Size(180, 26);
+            this.menuItemQuerySubject.Text = "查询";
+            this.menuItemQuerySubject.Click += new System.EventHandler(this.menuItemQuerySubject_Click);
+            // 
+            // 基础信息维护ToolStripMenuItem
+            // 
+            this.基础信息维护ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemSubjectType,
+            this.menuItemSubjectLevel});
+            this.基础信息维护ToolStripMenuItem.Name = "基础信息维护ToolStripMenuItem";
+            this.基础信息维护ToolStripMenuItem.Size = new System.Drawing.Size(111, 24);
+            this.基础信息维护ToolStripMenuItem.Text = "基础信息维护";
+            // 
+            // menuItemSubjectType
+            // 
+            this.menuItemSubjectType.Name = "menuItemSubjectType";
+            this.menuItemSubjectType.Size = new System.Drawing.Size(180, 26);
+            this.menuItemSubjectType.Text = "题目类型";
+            // 
+            // menuItemSubjectLevel
+            // 
+            this.menuItemSubjectLevel.Name = "menuItemSubjectLevel";
+            this.menuItemSubjectLevel.Size = new System.Drawing.Size(180, 26);
+            this.menuItemSubjectLevel.Text = "题目等级";
+            // 
+            // 用户管理ToolStripMenuItem
+            // 
+            this.用户管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemUserRegister,
+            this.menuItemUserScoreInput});
+            this.用户管理ToolStripMenuItem.Name = "用户管理ToolStripMenuItem";
+            this.用户管理ToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.用户管理ToolStripMenuItem.Text = "用户管理";
+            // 
+            // menuItemUserRegister
+            // 
+            this.menuItemUserRegister.Name = "menuItemUserRegister";
+            this.menuItemUserRegister.Size = new System.Drawing.Size(180, 26);
+            this.menuItemUserRegister.Text = "用户注册";
+            // 
+            // menuItemUserScoreInput
+            // 
+            this.menuItemUserScoreInput.Name = "menuItemUserScoreInput";
+            this.menuItemUserScoreInput.Size = new System.Drawing.Size(180, 26);
+            this.menuItemUserScoreInput.Text = "用户成绩记录";
+            // 
+            // panelChild
+            // 
+            this.panelChild.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelChild.Location = new System.Drawing.Point(0, 28);
+            this.panelChild.Name = "panelChild";
+            this.panelChild.Size = new System.Drawing.Size(659, 377);
+            this.panelChild.TabIndex = 2;
             // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 430);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.panelChild);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "BaseForm";
-            this.Text = "BaseForm";
+            this.Text = "考试管理系统";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BaseForm_FormClosed);
             this.Load += new System.EventHandler(this.BaseForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,7 +184,16 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private Sunisoft.IrisSkin.SkinEngine skinEngine1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 题库ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemAddSubject;
+        private System.Windows.Forms.ToolStripMenuItem menuItemQuerySubject;
+        private System.Windows.Forms.ToolStripMenuItem 基础信息维护ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemSubjectType;
+        private System.Windows.Forms.ToolStripMenuItem menuItemSubjectLevel;
+        private System.Windows.Forms.ToolStripMenuItem 用户管理ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemUserRegister;
+        private System.Windows.Forms.ToolStripMenuItem menuItemUserScoreInput;
+        private System.Windows.Forms.Panel panelChild;
     }
 }
