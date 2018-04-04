@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ExaminationEntity {
-    class UserInfo {
+    public class UserInfo {
+        public string Name { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExaminationEntity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -20,6 +21,10 @@ namespace WcfServiceLibrary1 {
                 composite.StringValue += "Suffix";
             }
             return composite;
+        }
+
+        public UserInfo GetUsers() {
+            return new UserInfo() { Name = "张三" };
         }
     }
 }
