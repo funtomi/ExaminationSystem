@@ -29,6 +29,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Record = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TestTimes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HighestScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +52,7 @@
             this.txtUserInfo.Name = "txtUserInfo";
             this.txtUserInfo.Size = new System.Drawing.Size(660, 25);
             this.txtUserInfo.TabIndex = 1;
+            this.txtUserInfo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUserInfo_KeyPress);
             // 
             // btnSearch
             // 
@@ -61,6 +63,7 @@
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "查询";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // label2
             // 
@@ -81,6 +84,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UserName,
+            this.Id,
             this.Record,
             this.TestTimes,
             this.HighestScore,
@@ -98,6 +102,13 @@
             this.UserName.Name = "UserName";
             this.UserName.ReadOnly = true;
             this.UserName.Width = 150;
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
             // 
             // Record
             // 
@@ -137,6 +148,7 @@
             this.Controls.Add(this.label1);
             this.Name = "UserRecordCtrl";
             this.Size = new System.Drawing.Size(903, 561);
+            this.Load += new System.EventHandler(this.UserRecordCtrl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -151,6 +163,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Record;
         private System.Windows.Forms.DataGridViewTextBoxColumn TestTimes;
         private System.Windows.Forms.DataGridViewTextBoxColumn HighestScore;
