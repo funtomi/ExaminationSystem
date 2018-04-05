@@ -67,7 +67,8 @@
             this.skinEngine1.DisabledButtonTextColor = System.Drawing.Color.Gray;
             this.skinEngine1.DisabledMenuFontColor = System.Drawing.SystemColors.GrayText;
             this.skinEngine1.InactiveCaptionColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.skinEngine1.SerialNumber = ""; 
+            this.skinEngine1.SerialNumber = "";
+            this.skinEngine1.SkinFile = null;
             // 
             // menuStrip1
             // 
@@ -117,14 +118,14 @@
             // menuItemSubjectType
             // 
             this.menuItemSubjectType.Name = "menuItemSubjectType";
-            this.menuItemSubjectType.Size = new System.Drawing.Size(180, 26);
+            this.menuItemSubjectType.Size = new System.Drawing.Size(144, 26);
             this.menuItemSubjectType.Text = "题目类型";
             this.menuItemSubjectType.Click += new System.EventHandler(this.menuItemSubjectType_Click);
             // 
             // menuItemSubjectLevel
             // 
             this.menuItemSubjectLevel.Name = "menuItemSubjectLevel";
-            this.menuItemSubjectLevel.Size = new System.Drawing.Size(180, 26);
+            this.menuItemSubjectLevel.Size = new System.Drawing.Size(144, 26);
             this.menuItemSubjectLevel.Text = "题目等级";
             this.menuItemSubjectLevel.Click += new System.EventHandler(this.menuItemSubjectLevel_Click);
             // 
@@ -140,14 +141,16 @@
             // menuItemUserRegister
             // 
             this.menuItemUserRegister.Name = "menuItemUserRegister";
-            this.menuItemUserRegister.Size = new System.Drawing.Size(174, 26);
+            this.menuItemUserRegister.Size = new System.Drawing.Size(180, 26);
             this.menuItemUserRegister.Text = "用户注册";
+            this.menuItemUserRegister.Click += new System.EventHandler(this.menuItemUserRegister_Click);
             // 
             // menuItemUserScoreInput
             // 
             this.menuItemUserScoreInput.Name = "menuItemUserScoreInput";
-            this.menuItemUserScoreInput.Size = new System.Drawing.Size(174, 26);
+            this.menuItemUserScoreInput.Size = new System.Drawing.Size(180, 26);
             this.menuItemUserScoreInput.Text = "用户成绩记录";
+            this.menuItemUserScoreInput.Click += new System.EventHandler(this.menuItemUserScoreInput_Click);
             // 
             // panelChild
             // 

@@ -7,5 +7,7 @@ using System.Threading.Tasks;
 namespace ExaminationEntity {
     public class UserInfo {
         public string Name { get; set; }
+        public string Password { get; set; }
+        public Guid Id { get; set; }
     }
 }

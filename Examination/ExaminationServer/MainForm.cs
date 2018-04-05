@@ -92,7 +92,19 @@ namespace ExaminationServer {
             BasicInfoManager ctrl = new BasicInfoManager(BasicType.SubLevel);
             ChangeFormTo(ctrl);
         }
+
+        private void menuItemUserRegister_Click(object sender, EventArgs e) {
+            UserManagerCtrl ctrl = new UserManagerCtrl();
+            ChangeFormTo(ctrl);
+        }
+
+        private void menuItemUserScoreInput_Click(object sender, EventArgs e) {
+            UserRecordCtrl ctrl = new UserRecordCtrl();
+            ChangeFormTo(ctrl);
+        }
         #endregion
+
+       
          
     }
 }
