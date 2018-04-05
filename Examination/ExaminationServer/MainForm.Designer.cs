@@ -118,14 +118,16 @@
             // menuItemSubjectType
             // 
             this.menuItemSubjectType.Name = "menuItemSubjectType";
-            this.menuItemSubjectType.Size = new System.Drawing.Size(144, 26);
+            this.menuItemSubjectType.Size = new System.Drawing.Size(180, 26);
             this.menuItemSubjectType.Text = "题目类型";
+            this.menuItemSubjectType.Click += new System.EventHandler(this.menuItemSubjectType_Click);
             // 
             // menuItemSubjectLevel
             // 
             this.menuItemSubjectLevel.Name = "menuItemSubjectLevel";
-            this.menuItemSubjectLevel.Size = new System.Drawing.Size(144, 26);
+            this.menuItemSubjectLevel.Size = new System.Drawing.Size(180, 26);
             this.menuItemSubjectLevel.Text = "题目等级";
+            this.menuItemSubjectLevel.Click += new System.EventHandler(this.menuItemSubjectLevel_Click);
             // 
             // 用户管理ToolStripMenuItem
             // 

@@ -160,6 +160,7 @@ namespace ExaminationServer {
         /// <returns></returns>
         private bool CompletionValidator() {
             if (string.IsNullOrEmpty(this.txtBoxResult.Text)) {
+                MessageBox.Show("请填写答案！");
                 return false;
             }
             return true;
@@ -172,6 +173,7 @@ namespace ExaminationServer {
         private bool SelectContentValidator() {
             if (string.IsNullOrEmpty(this.txtBoxResultA.Text)||string.IsNullOrEmpty(this.txtBoxResultB.Text)||
                 string.IsNullOrEmpty(this.txtBoxResultC.Text)||string.IsNullOrEmpty(this.txtBoxResultD.Text)) {
+                    MessageBox.Show("请填写选项内容！");
                     return false;
             }
             return true;

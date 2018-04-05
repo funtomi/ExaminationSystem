@@ -82,8 +82,17 @@ namespace ExaminationServer {
             SubjectAddCtrl ctrl = new SubjectAddCtrl(); 
             ChangeFormTo(ctrl);
         }
+
+        private void menuItemSubjectType_Click(object sender, EventArgs e) {
+            BasicInfoManager ctrl = new BasicInfoManager(BasicType.SubType);
+            ChangeFormTo(ctrl);
+        }
+
+        private void menuItemSubjectLevel_Click(object sender, EventArgs e) {
+            BasicInfoManager ctrl = new BasicInfoManager(BasicType.SubLevel);
+            ChangeFormTo(ctrl);
+        }
         #endregion
-        
          
     }
 }

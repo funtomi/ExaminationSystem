@@ -60,6 +60,7 @@
     <Compile Include="BaseControl.Designer.cs">
       <DependentUpon>BaseControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DB2BulkCopy.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,11 +82,11 @@
     <Compile Include="SubjectQueryCtrl.Designer.cs">
       <DependentUpon>SubjectQueryCtrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubjectShowCtrl.cs">
+    <Compile Include="BasicInfoManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SubjectShowCtrl.Designer.cs">
-      <DependentUpon>SubjectShowCtrl.cs</DependentUpon>
+    <Compile Include="BasicInfoManager.Designer.cs">
+      <DependentUpon>BasicInfoManager.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -105,8 +106,8 @@
     <EmbeddedResource Include="SubjectQueryCtrl.resx">
       <DependentUpon>SubjectQueryCtrl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubjectShowCtrl.resx">
-      <DependentUpon>SubjectShowCtrl.cs</DependentUpon>
+    <EmbeddedResource Include="BasicInfoManager.resx">
+      <DependentUpon>BasicInfoManager.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
