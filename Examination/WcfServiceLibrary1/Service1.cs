@@ -1,9 +1,5 @@
-﻿using ExaminationEntity;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -12,8 +8,6 @@ using System.Text;
 namespace WcfServiceLibrary1 {
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的类名“Service1”。
     public class Service1 : IService1 {
-        protected static string SQL_CON = ConfigurationManager.AppSettings["sqlCon"]; 
-
         public string GetData(int value) {
             return string.Format("You entered: {0}", value);
         }
@@ -27,11 +21,5 @@ namespace WcfServiceLibrary1 {
             }
             return composite;
         }
-
-        public UserInfo GetUsers() {
-            return new UserInfo() { Name = "张三" };
-        }
-
-    
     }
 }

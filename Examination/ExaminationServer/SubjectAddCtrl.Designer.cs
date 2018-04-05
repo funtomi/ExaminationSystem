@@ -87,6 +87,7 @@
             this.panelSelect.Name = "panelSelect";
             this.panelSelect.Size = new System.Drawing.Size(640, 314);
             this.panelSelect.TabIndex = 4;
+            this.panelSelect.Visible = false;
             // 
             // cmboxResult
             // 
@@ -224,8 +225,8 @@
             // 
             // panelCompletion
             // 
-            this.panelCompletion.Controls.Add(this.txtBoxResult);
             this.panelCompletion.Controls.Add(this.label9);
+            this.panelCompletion.Controls.Add(this.txtBoxResult);
             this.panelCompletion.Location = new System.Drawing.Point(24, 221);
             this.panelCompletion.Name = "panelCompletion";
             this.panelCompletion.Size = new System.Drawing.Size(640, 314);
@@ -272,8 +273,8 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtBoxAbstract);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.panelSelect);
             this.Controls.Add(this.panelCompletion);
+            this.Controls.Add(this.panelSelect);
             this.MinimumSize = new System.Drawing.Size(689, 597);
             this.Name = "SubjectAddCtrl";
             this.Size = new System.Drawing.Size(689, 597);

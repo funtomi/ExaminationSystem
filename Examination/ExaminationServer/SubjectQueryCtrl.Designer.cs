@@ -30,7 +30,6 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Abstract = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubDisType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SubType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -97,7 +96,6 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Abstract,
-            this.SubDisType,
             this.SubType,
             this.Id});
             this.dataGridView1.Location = new System.Drawing.Point(12, 59);
@@ -116,23 +114,13 @@
             this.Abstract.Name = "Abstract";
             this.Abstract.ReadOnly = true;
             // 
-            // SubDisType
-            // 
-            this.SubDisType.DataPropertyName = "SubDisType";
-            this.SubDisType.HeaderText = "题目显示类型";
-            this.SubDisType.Name = "SubDisType";
-            this.SubDisType.ReadOnly = true;
-            this.SubDisType.Width = 150;
-            // 
             // SubType
             // 
-            this.SubType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.SubType.DataPropertyName = "SubType";
             this.SubType.HeaderText = "题目类型";
             this.SubType.Name = "SubType";
             this.SubType.ReadOnly = true;
-            this.SubType.Visible = false;
-            this.SubType.Width = 96;
+            this.SubType.Width = 150;
             // 
             // Id
             // 
@@ -170,7 +158,6 @@
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Abstract;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubDisType;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubType;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
     }

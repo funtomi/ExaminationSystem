@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
+using ExaminationHelper;
 
 namespace ExaminationServer {
     public partial class SubjectQueryCtrl : ExaminationServer.BaseControl {
@@ -37,7 +38,7 @@ namespace ExaminationServer {
                 return;
             }
             //获取题目类型
-            var type = GetSubjectType(this.cmboxType.SelectedItem.ToString());
+            var type = this.cmboxType.Text;
             var data = DoSearch(text, type);
             if (data == null || data.Rows.Count == 0) {
                 _data.Rows.Clear();
@@ -50,19 +51,7 @@ namespace ExaminationServer {
             if (filtData == null || filtData.Rows.Count == 0) {
                 ClearDataGridView();
                 return;
-            } 
-            filtData.Columns.Add("SubDisType");
-            foreach (DataRow row in filtData.Rows) {
-                switch ((SubjectType)row["SubType"]) {
-                    default:
-                    case SubjectType.select:
-                        row["SubDisType"] = "选择题";
-                        break;
-                    case SubjectType.completion:
-                        row["SubDisType"] = "填空题";
-                        break; 
-                }
-            }
+            }  
             this.dataGridView1.DataSource = filtData;
         }
 
@@ -73,8 +62,7 @@ namespace ExaminationServer {
             DataTable dt = new DataTable();
             dt.Columns.Add("Abstract");
             dt.Columns.Add("SubType");
-            dt.Columns.Add("Id");
-            dt.Columns.Add("SubDisType");
+            dt.Columns.Add("Id"); 
             this.dataGridView1.DataSource = dt;
         }
 
@@ -96,7 +84,7 @@ namespace ExaminationServer {
         /// <param name="text">搜索内容</param>
         /// <param name="type">题目类型</param>
         /// <returns></returns>
-        private DataTable DoSearch(string text, SubjectType type) {
+        private DataTable DoSearch(string text, string type) {
             if (string.IsNullOrEmpty(text)) {
                 return null;
             }
@@ -106,7 +94,7 @@ namespace ExaminationServer {
                     string sql = "select * from Subject where SubType = @type and Abstract like  '%'+ @text + '%'";
                     con.Open();
                     SqlCommand cmd = new SqlCommand(sql,con);
-                    cmd.Parameters.Add(new SqlParameter("@type", (int)type));
+                    cmd.Parameters.Add(new SqlParameter("@type", type));
                     cmd.Parameters.Add(new SqlParameter("@text", text));
                     SqlDataAdapter ada = new SqlDataAdapter(cmd);
                     ada.Fill(dt);
@@ -117,29 +105,27 @@ namespace ExaminationServer {
                 throw;
             }
         }
+         
 
         /// <summary>
-        /// 获取题目类型
+        /// 设置题目类型
         /// </summary>
-        /// <param name="p">选择的题目类型</param>
-        /// <returns></returns>
-        private SubjectType GetSubjectType(string p) {
-            if (string.IsNullOrEmpty(p)) {
-                return SubjectType.select;
+        private void SetSubjectTypes() {
+            this.cmboxType.Items.Clear();
+            List<string> types = GetSubTypes();
+            if (types == null||types.Count == 0) {
+                MessageBox.Show("没有找到题目类型！");
+                return;
             }
-            switch (p) {
-                default:
-                case "选择题":
-                    return SubjectType.select;
-                case "填空题":
-                    return SubjectType.completion;
-            }
-        }
+            this.cmboxType.Items.AddRange(types.ToArray());
+            this.cmboxType.SelectedIndex = 0;
 
+        }
+         
 
         #region 事件
         private void SubjectQueryCtrl_Load(object sender, EventArgs e) {
-            this.cmboxType.SelectedIndex = 0;
+            SetSubjectTypes();
         }
 
         private void btnSearch_Click(object sender, EventArgs e) {

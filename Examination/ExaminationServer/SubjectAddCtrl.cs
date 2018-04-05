@@ -20,7 +20,7 @@ namespace ExaminationServer {
         }
 
         
-        private SubjectType _currentType = SubjectType.select;
+        private string _currentType = "填空题";
         private bool _isNew = true;
         private SubjectInfo _currentSubject = new SubjectInfo();
 
@@ -35,21 +35,22 @@ namespace ExaminationServer {
             _currentSubject = GetSubject(id);
             if (_currentSubject == null) {
                 return;
-            }
-           this.cmboxSubType.SelectedIndex = _currentSubject.SubType;
-            _currentType = (SubjectType)_currentSubject.SubType;
-            this.cmboxSubType.SelectedIndex = (int)_currentType;
+            } 
+            _currentType = _currentSubject.SubType;
+            this.cmboxSubType.SelectedIndex = this.cmboxSubType.Items.Contains(_currentType)?this.cmboxSubType.Items.IndexOf(_currentType)
+                :0;
             ChangeSubTypeView();
             this.txtBoxAbstract.Text = _currentSubject.Abstract;
             switch (_currentType) {
-                case SubjectType.select:
+                case "选择题":
                     this.txtBoxResultA.Text = _currentSubject.SelectItem1;
                     this.txtBoxResultB.Text = _currentSubject.SelectItem2;
                     this.txtBoxResultC.Text = _currentSubject.SelectItem3;
                     this.txtBoxResultD.Text = _currentSubject.SelectItem4;
                     this.cmboxResult.SelectedValue = _currentSubject.Result;
                     break;
-                case SubjectType.completion:
+                default:
+                case "填空题":
                     this.txtBoxResult.Text = _currentSubject.Result;
                     break; 
             }
@@ -106,7 +107,7 @@ namespace ExaminationServer {
                     con.Open();
                     SqlCommand cmd = new SqlCommand("",con);
                     switch (_currentType) {
-                        case SubjectType.select:
+                        case "选择题":
                             sql = "insert into Subject (Id,Abstract,SubType,Result,SelectItem1,SelectItem2,SelectItem3,SelectItem4)"
                                 + "values(@Id,@Abstract,@SubType,@Result,@SelectItem1,@SelectItem2,@SelectItem3,@SelectItem4)";
                             cmd.CommandText = sql;
@@ -117,7 +118,7 @@ namespace ExaminationServer {
                             cmd.Parameters.AddWithValue("SelectItem4", this.txtBoxResultD.Text);
 
                             break;
-                        case SubjectType.completion:
+                        case "填空题":
                             sql = "insert into Subject (Id,Abstract,SubType,Result)"
                                 + "values(@Id,@Abstract,@SubType,@Result)";
                             cmd.CommandText = sql;
@@ -126,7 +127,7 @@ namespace ExaminationServer {
                     }
                     cmd.Parameters.AddWithValue("Id", id);
                     cmd.Parameters.AddWithValue("Abstract", this.txtBoxAbstract.Text);
-                    cmd.Parameters.AddWithValue("SubType", (int)_currentType);
+                    cmd.Parameters.AddWithValue("SubType", _currentType);
                     cmd.ExecuteNonQuery();
                     con.Close();
                     return true;
@@ -145,10 +146,10 @@ namespace ExaminationServer {
             if (!AbstractValidator()) {
                 return false;
             }
-            if (_currentType == SubjectType.select && !SelectContentValidator()) {
+            if (this.panelSelect.Visible && !SelectContentValidator()) {
                 return false;
             }
-            if (_currentType == SubjectType.completion&&!CompletionValidator()) {
+            if (this.panelCompletion.Visible && !CompletionValidator()) {
                 return false;
             }
             return true;
@@ -199,24 +200,17 @@ namespace ExaminationServer {
             var text = this.cmboxSubType.Text;
             if (string.IsNullOrEmpty(text)) {
                 return;
-            }
-
+            } 
             switch (text) {
-                default:
-                case "选择题":
-                    if (_currentType == SubjectType.select) {
-                        return;
-                    }
-                    _currentType = SubjectType.select;
+                case "选择题": 
+                    _currentType = text;
                     ClearViews();
                     this.panelSelect.Visible = true;
                     this.panelCompletion.Visible = false;
                     break;
-                case "填空题":
-                    if (_currentType == SubjectType.completion) {
-                        return;
-                    }
-                    _currentType = SubjectType.completion;
+                default:
+                case "填空题": 
+                    _currentType = text;
                     ClearViews();
                     this.panelSelect.Visible = false;
                     this.panelCompletion.Visible = true;
@@ -248,7 +242,7 @@ namespace ExaminationServer {
                     SqlCommand cmd = new SqlCommand("", conn);
                     string sql;
                     switch (_currentType) {
-                        case SubjectType.select:
+                        case "选择题":
                             sql = "update Subject set Abstract=@Abstract,SubType=@SubType,Result=@Result,SelectItem1=@SelectItem1,"
                                 + "SelectItem2=@SelectItem2,SelectItem3=@SelectItem3,SelectItem4=@SelectItem4 where Id = @Id";
                             cmd.CommandText = sql;
@@ -258,14 +252,15 @@ namespace ExaminationServer {
                             cmd.Parameters.AddWithValue("@SelectItem4", this.txtBoxResultB.Text);
                             cmd.Parameters.AddWithValue("@Result", this.cmboxResult.Text);
                             break;
-                        case SubjectType.completion:
+                        default:
+                        case "填空题":
                             sql = "update Subject set Abstract=@Abstract,SubType=@SubType,Result=@Result where Id = @Id";
                             cmd.CommandText = sql;
                             cmd.Parameters.AddWithValue("@Result", this.txtBoxResult.Text);
                             break; 
                     }
                     cmd.Parameters.AddWithValue("@Abstract",this.txtBoxAbstract.Text);
-                    cmd.Parameters.AddWithValue("@SubType",(int)_currentType);
+                    cmd.Parameters.AddWithValue("@SubType",_currentType);
                     cmd.Parameters.AddWithValue("@Id",_currentSubject.Id);
                     cmd.ExecuteNonQuery();
                     conn.Close();
@@ -305,9 +300,23 @@ namespace ExaminationServer {
             }
         }
 
+        /// <summary>
+        /// 设置题目类型
+        /// </summary>
+        private void SetSubjectTypes() {
+            this.cmboxSubType.Items.Clear();
+            List<string> types = GetSubTypes();
+            if (types == null || types.Count == 0) {
+                MessageBox.Show("没有找到题目类型！");
+                return;
+            }
+            this.cmboxSubType.Items.AddRange(types.ToArray());
+        }
+
         #region 事件
         private void SubjectAddCtrl_Load(object sender, EventArgs e) {
             if (_isNew) {
+                SetSubjectTypes();
                 this.cmboxSubType.SelectedIndex = 0;
                 this.cmboxResult.SelectedIndex = 0;
             }
