@@ -14,9 +14,18 @@ namespace ExaminationServer {
     public partial class SubjectQueryCtrl : ExaminationServer.BaseControl {
         public SubjectQueryCtrl() {
             InitializeComponent();
-        } 
+        }
 
-        private DataTable _data;//最新的搜索结果
+        private DataTable _data = new DataTable();//最新的搜索结果
+
+        public delegate void SelectSubjectEventDelegate();
+        public SelectSubjectEventDelegate SelectSubjectEvent;
+
+        /// <summary>
+        /// 当前选择的题目ID
+        /// </summary>
+        public string CurrentId { get { return _currentId; }  }
+        private string _currentId;
 
         /// <summary>
         /// 搜索
@@ -24,7 +33,7 @@ namespace ExaminationServer {
         private void SearchSubject() {
             var text = this.txtSearch.Text;
             if (string.IsNullOrEmpty(text)) {//如果没有输入搜索内容，则清空表格
-                this.dataGridView1.Rows.Clear();
+                ClearDataGridView();
                 return;
             }
             //获取题目类型
@@ -32,16 +41,16 @@ namespace ExaminationServer {
             var data = DoSearch(text, type);
             if (data == null || data.Rows.Count == 0) {
                 _data.Rows.Clear();
-                this.dataGridView1.Rows.Clear();
+                ClearDataGridView();
                 MessageBox.Show("没有找到匹配的题目！");
                 return;
             }
             _data = data;
             var filtData = GetDisplayData(data);
             if (filtData == null || filtData.Rows.Count == 0) {
-                this.dataGridView1.Rows.Clear();
+                ClearDataGridView();
                 return;
-            }
+            } 
             filtData.Columns.Add("SubDisType");
             foreach (DataRow row in filtData.Rows) {
                 switch ((SubjectType)row["SubType"]) {
@@ -55,6 +64,18 @@ namespace ExaminationServer {
                 }
             }
             this.dataGridView1.DataSource = filtData;
+        }
+
+        /// <summary>
+        /// 清除表格内容
+        /// </summary>
+        private void ClearDataGridView() {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Abstract");
+            dt.Columns.Add("SubType");
+            dt.Columns.Add("Id");
+            dt.Columns.Add("SubDisType");
+            this.dataGridView1.DataSource = dt;
         }
 
         /// <summary>
@@ -132,9 +153,18 @@ namespace ExaminationServer {
             }
             SearchSubject();
         }
-        #endregion
 
-      
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex<0) {
+                return;
+            }
+            _currentId = this.dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+            if (SelectSubjectEvent!=null) {
+                SelectSubjectEvent();
+            }
+        }
+        #endregion
+         
     }
 
 }

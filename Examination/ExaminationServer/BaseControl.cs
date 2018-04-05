@@ -14,16 +14,10 @@ namespace ExaminationServer {
         public BaseControl() {
             InitializeComponent();
         }
-        protected static string SQL_CON = ConfigurationManager.AppSettings["sqlCon"];
-        /// <summary>
-        /// 服务
-        /// </summary>
-        public ServiceContainer Service {
-            get { return _service; }
-            set { _service = value; }
-        }
-        private ServiceContainer _service;
+        protected static string SQL_CON = ConfigurationManager.AppSettings["sqlCon"]; 
+
     }
+
 
     public enum SubjectType {
         select,//选择题

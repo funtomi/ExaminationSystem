@@ -43,6 +43,7 @@
             this.panelCompletion = new System.Windows.Forms.Panel();
             this.txtBoxResult = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.panelSelect.SuspendLayout();
             this.panelCompletion.SuspendLayout();
             this.SuspendLayout();
@@ -250,17 +251,29 @@
             this.label9.TabIndex = 14;
             this.label9.Text = "答案：";
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(121, 554);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(61, 23);
+            this.btnDelete.TabIndex = 17;
+            this.btnDelete.Text = "删除";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Visible = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // SubjectAddCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScroll = true;
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.cmboxSubType);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtBoxAbstract);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.panelCompletion);
             this.Controls.Add(this.panelSelect);
+            this.Controls.Add(this.panelCompletion);
             this.MinimumSize = new System.Drawing.Size(689, 597);
             this.Name = "SubjectAddCtrl";
             this.Size = new System.Drawing.Size(689, 597);
@@ -296,5 +309,6 @@
         private System.Windows.Forms.Panel panelCompletion;
         private System.Windows.Forms.TextBox txtBoxResult;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

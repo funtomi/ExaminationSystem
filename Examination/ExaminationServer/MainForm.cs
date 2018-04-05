@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExaminationServer {
-    public partial class BaseForm : Form {
-        public BaseForm() {
+    public partial class MainForm : Form {
+        public MainForm() {
             InitializeComponent();
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.  
@@ -27,10 +27,36 @@ namespace ExaminationServer {
         /// </summary>
         /// <param name="ctrl"></param>
         private void ChangeFormTo(UserControl ctrl) {
+            foreach (Control item in this.panelChild.Controls) {
+                item.Dispose();
+            }
             this.panelChild.Controls.Clear();
             ctrl.Dock = DockStyle.Fill;
             this.panelChild.Controls.Add(ctrl);
         }
+
+        /// <summary>
+        /// 选择某个题目
+        /// </summary>
+        private void SelectSubjectEventHandle() {
+            if (this.panelChild.Controls == null||this.panelChild.Controls.Count == 0) {
+                return;
+            }
+            var currentCtrl = this.panelChild.Controls[0] as SubjectQueryCtrl;
+            if (currentCtrl == null) {
+                return;
+            } 
+            if (string.IsNullOrEmpty(currentCtrl.CurrentId)) {
+                return;
+            }
+            var id = Guid.Parse(currentCtrl.CurrentId);
+            if (id == null) {
+                return;
+            }
+            SubjectAddCtrl ctrl = new SubjectAddCtrl(id);
+            ChangeFormTo(ctrl);
+        }
+
         #region 事件
         private void BaseForm_Load(object sender, EventArgs e) {
             skinEngine1.SkinFile = "MSN.ssk";
@@ -48,13 +74,12 @@ namespace ExaminationServer {
 
         private void menuItemQuerySubject_Click(object sender, EventArgs e) {
             SubjectQueryCtrl ctrl = new SubjectQueryCtrl();
-            ctrl.Service = _service; 
+            ctrl.SelectSubjectEvent += new SubjectQueryCtrl.SelectSubjectEventDelegate(SelectSubjectEventHandle);
             ChangeFormTo(ctrl);
         }
 
         private void menuItemAddSubject_Click(object sender, EventArgs e) {
-            SubjectAddCtrl ctrl = new SubjectAddCtrl();
-            ctrl.Service = _service;
+            SubjectAddCtrl ctrl = new SubjectAddCtrl(); 
             ChangeFormTo(ctrl);
         }
         #endregion
