@@ -54,6 +54,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseControl.Designer.cs">
+      <DependentUpon>BaseControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceContainer.cs" />
+    <Compile Include="SubjectAddCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubjectAddCtrl.Designer.cs">
+      <DependentUpon>SubjectAddCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubjectQueryCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -81,6 +93,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SubjectAddCtrl.resx">
+      <DependentUpon>SubjectAddCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubjectQueryCtrl.resx">
       <DependentUpon>SubjectQueryCtrl.cs</DependentUpon>
     </EmbeddedResource>

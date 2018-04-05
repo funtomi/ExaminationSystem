@@ -47,9 +47,9 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 405);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 650);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(659, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1367, 25);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -79,7 +79,7 @@
             this.用户管理ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(659, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1367, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -95,13 +95,14 @@
             // menuItemAddSubject
             // 
             this.menuItemAddSubject.Name = "menuItemAddSubject";
-            this.menuItemAddSubject.Size = new System.Drawing.Size(180, 26);
+            this.menuItemAddSubject.Size = new System.Drawing.Size(114, 26);
             this.menuItemAddSubject.Text = "新增";
+            this.menuItemAddSubject.Click += new System.EventHandler(this.menuItemAddSubject_Click);
             // 
             // menuItemQuerySubject
             // 
             this.menuItemQuerySubject.Name = "menuItemQuerySubject";
-            this.menuItemQuerySubject.Size = new System.Drawing.Size(180, 26);
+            this.menuItemQuerySubject.Size = new System.Drawing.Size(114, 26);
             this.menuItemQuerySubject.Text = "查询";
             this.menuItemQuerySubject.Click += new System.EventHandler(this.menuItemQuerySubject_Click);
             // 
@@ -117,13 +118,13 @@
             // menuItemSubjectType
             // 
             this.menuItemSubjectType.Name = "menuItemSubjectType";
-            this.menuItemSubjectType.Size = new System.Drawing.Size(180, 26);
+            this.menuItemSubjectType.Size = new System.Drawing.Size(144, 26);
             this.menuItemSubjectType.Text = "题目类型";
             // 
             // menuItemSubjectLevel
             // 
             this.menuItemSubjectLevel.Name = "menuItemSubjectLevel";
-            this.menuItemSubjectLevel.Size = new System.Drawing.Size(180, 26);
+            this.menuItemSubjectLevel.Size = new System.Drawing.Size(144, 26);
             this.menuItemSubjectLevel.Text = "题目等级";
             // 
             // 用户管理ToolStripMenuItem
@@ -138,28 +139,31 @@
             // menuItemUserRegister
             // 
             this.menuItemUserRegister.Name = "menuItemUserRegister";
-            this.menuItemUserRegister.Size = new System.Drawing.Size(180, 26);
+            this.menuItemUserRegister.Size = new System.Drawing.Size(174, 26);
             this.menuItemUserRegister.Text = "用户注册";
             // 
             // menuItemUserScoreInput
             // 
             this.menuItemUserScoreInput.Name = "menuItemUserScoreInput";
-            this.menuItemUserScoreInput.Size = new System.Drawing.Size(180, 26);
+            this.menuItemUserScoreInput.Size = new System.Drawing.Size(174, 26);
             this.menuItemUserScoreInput.Text = "用户成绩记录";
             // 
             // panelChild
             // 
-            this.panelChild.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelChild.Location = new System.Drawing.Point(0, 28);
+            this.panelChild.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelChild.AutoScroll = true;
+            this.panelChild.Location = new System.Drawing.Point(12, 40);
             this.panelChild.Name = "panelChild";
-            this.panelChild.Size = new System.Drawing.Size(659, 377);
+            this.panelChild.Size = new System.Drawing.Size(1343, 596);
             this.panelChild.TabIndex = 2;
             // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 430);
+            this.ClientSize = new System.Drawing.Size(1367, 675);
             this.Controls.Add(this.panelChild);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -167,7 +171,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "BaseForm";
             this.Text = "考试管理系统";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BaseForm_FormClosed);
             this.Load += new System.EventHandler(this.BaseForm_Load);
             this.statusStrip1.ResumeLayout(false);

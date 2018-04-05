@@ -11,19 +11,10 @@ using System.Data.SqlClient;
 using System.Configuration;
 
 namespace ExaminationServer {
-    public partial class SubjectQueryCtrl : UserControl {
+    public partial class SubjectQueryCtrl : ExaminationServer.BaseControl {
         public SubjectQueryCtrl() {
             InitializeComponent();
-        }
-        private static string SQL_CON = ConfigurationManager.AppSettings["sqlCon"];
-        /// <summary>
-        /// 服务
-        /// </summary>
-        public ServiceContainer Service {
-            get { return _service; }
-            set { _service = value; }
-        }
-        private ServiceContainer _service;
+        } 
 
         private DataTable _data;//最新的搜索结果
 
@@ -146,8 +137,4 @@ namespace ExaminationServer {
       
     }
 
-    public enum SubjectType { 
-        select,//选择题
-        completion//填空题
-    }
 }

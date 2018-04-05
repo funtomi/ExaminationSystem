@@ -117,12 +117,11 @@
             // 
             // SubDisType
             // 
-            this.SubDisType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.SubDisType.DataPropertyName = "SubDisType";
             this.SubDisType.HeaderText = "题目显示类型";
             this.SubDisType.Name = "SubDisType";
             this.SubDisType.ReadOnly = true;
-            this.SubDisType.Width = 89;
+            this.SubDisType.Width = 150;
             // 
             // SubType
             // 
@@ -132,7 +131,7 @@
             this.SubType.Name = "SubType";
             this.SubType.ReadOnly = true;
             this.SubType.Visible = false;
-            this.SubType.Width = 75;
+            this.SubType.Width = 96;
             // 
             // Id
             // 
