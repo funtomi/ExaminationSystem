@@ -1,11 +1,13 @@
 ﻿using ExaminationEntity;
 using ExaminationHelper;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms; 
 
@@ -14,15 +16,22 @@ namespace ExaminationServer {
         public SubjectAddCtrl() {
             InitializeComponent();
         }
-        public SubjectAddCtrl(Guid id):this() {
+        public SubjectAddCtrl(Guid id)
+            : this() {
             _isNew = false;
-            SetContent(id);
+            _id = id;
+           
         }
 
-        
+
         private string _currentType = "填空题";
         private bool _isNew = true;
         private SubjectInfo _currentSubject = new SubjectInfo();
+        private string _fileName;
+        WaveOut _wavePlayer = new WaveOut();
+        private byte[] _fileStream;
+        private Guid _id;
+        private bool _isDirty = false;
 
         /// <summary>
         /// 设置内容
@@ -35,10 +44,13 @@ namespace ExaminationServer {
             _currentSubject = GetSubject(id);
             if (_currentSubject == null) {
                 return;
-            } 
+            }
             _currentType = _currentSubject.SubType;
-            this.cmboxSubType.SelectedIndex = this.cmboxSubType.Items.Contains(_currentType)?this.cmboxSubType.Items.IndexOf(_currentType)
-                :0;
+
+            this.cmboxSubType.SelectedIndex = this.cmboxSubType.Items.Contains(_currentType) ? this.cmboxSubType.Items.IndexOf(_currentType)
+                : 0;
+            this.cmboxSubLevel.SelectedIndex = this.cmboxSubLevel.Items.Contains(_currentType) ? this.cmboxSubLevel.Items.IndexOf(_currentType)
+                : 0;
             ChangeSubTypeView();
             this.txtBoxAbstract.Text = _currentSubject.Abstract;
             switch (_currentType) {
@@ -52,8 +64,16 @@ namespace ExaminationServer {
                 default:
                 case "填空题":
                     this.txtBoxResult.Text = _currentSubject.Result;
-                    break; 
+                    break;
             }
+            if (!string.IsNullOrEmpty(_currentSubject.SubAudioName)) {
+                this.txtBoxFileName.Text = _currentSubject.SubAudioName;
+            }
+            if (_currentSubject.SubAudio!=null&&_currentSubject.SubAudio.Length>0) {
+                _fileStream = _currentSubject.SubAudio;
+                this.btnPlay.Enabled = true;
+            }
+          
             this.btnDelete.Visible = true;
         }
 
@@ -105,22 +125,23 @@ namespace ExaminationServer {
                     string sql;
                     var id = Guid.NewGuid();
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("",con);
+                    SqlCommand cmd = new SqlCommand("", con);
                     switch (_currentType) {
                         case "选择题":
-                            sql = "insert into Subject (Id,Abstract,SubType,Result,SelectItem1,SelectItem2,SelectItem3,SelectItem4)"
-                                + "values(@Id,@Abstract,@SubType,@Result,@SelectItem1,@SelectItem2,@SelectItem3,@SelectItem4)";
+                            sql = "insert into Subject (Id,Abstract,SubType,Result,SelectItem1,SelectItem2,SelectItem3,SelectItem4"
+                                + ",SubLevel,SubAudio,SubAudioName)"
+                                + "values(@Id,@Abstract,@SubType,@Result,@SelectItem1,@SelectItem2,@SelectItem3,@SelectItem4"
+                                +",@SubLevel,@SubAudio,@SubAudioName)";
                             cmd.CommandText = sql;
                             cmd.Parameters.AddWithValue("Result", this.cmboxResult.Text);
                             cmd.Parameters.AddWithValue("SelectItem1", this.txtBoxResultA.Text);
                             cmd.Parameters.AddWithValue("SelectItem2", this.txtBoxResultB.Text);
                             cmd.Parameters.AddWithValue("SelectItem3", this.txtBoxResultC.Text);
                             cmd.Parameters.AddWithValue("SelectItem4", this.txtBoxResultD.Text);
-
                             break;
                         case "填空题":
-                            sql = "insert into Subject (Id,Abstract,SubType,Result)"
-                                + "values(@Id,@Abstract,@SubType,@Result)";
+                            sql = "insert into Subject (Id,Abstract,SubType,Result,SubLevel,SubAudio,SubAudioName)"
+                                + "values(@Id,@Abstract,@SubType,@Result,@SubLevel,@SubAudio,@SubAudioName)";
                             cmd.CommandText = sql;
                             cmd.Parameters.AddWithValue("Result", this.txtBoxResult.Text);
                             break;
@@ -128,6 +149,9 @@ namespace ExaminationServer {
                     cmd.Parameters.AddWithValue("Id", id);
                     cmd.Parameters.AddWithValue("Abstract", this.txtBoxAbstract.Text);
                     cmd.Parameters.AddWithValue("SubType", _currentType);
+                    cmd.Parameters.AddWithValue("@SubLevel", this.cmboxSubLevel.Text);
+                    cmd.Parameters.AddWithValue("@SubAudio", _fileStream);
+                    cmd.Parameters.AddWithValue("@SubAudioName", this.txtBoxFileName.Text);
                     cmd.ExecuteNonQuery();
                     con.Close();
                     return true;
@@ -152,6 +176,9 @@ namespace ExaminationServer {
             if (this.panelCompletion.Visible && !CompletionValidator()) {
                 return false;
             }
+            if (string.IsNullOrEmpty(_fileName)||_fileStream==null) {
+                return false;
+            }
             return true;
         }
 
@@ -172,10 +199,10 @@ namespace ExaminationServer {
         /// </summary>
         /// <returns></returns>
         private bool SelectContentValidator() {
-            if (string.IsNullOrEmpty(this.txtBoxResultA.Text)||string.IsNullOrEmpty(this.txtBoxResultB.Text)||
-                string.IsNullOrEmpty(this.txtBoxResultC.Text)||string.IsNullOrEmpty(this.txtBoxResultD.Text)) {
-                    MessageBox.Show("请填写选项内容！");
-                    return false;
+            if (string.IsNullOrEmpty(this.txtBoxResultA.Text) || string.IsNullOrEmpty(this.txtBoxResultB.Text) ||
+                string.IsNullOrEmpty(this.txtBoxResultC.Text) || string.IsNullOrEmpty(this.txtBoxResultD.Text)) {
+                MessageBox.Show("请填写选项内容！");
+                return false;
             }
             return true;
         }
@@ -192,7 +219,7 @@ namespace ExaminationServer {
             }
             return true;
         }
-       
+
         /// <summary>
         /// 改变题目类型
         /// </summary>
@@ -200,16 +227,16 @@ namespace ExaminationServer {
             var text = this.cmboxSubType.Text;
             if (string.IsNullOrEmpty(text)) {
                 return;
-            } 
+            }
             switch (text) {
-                case "选择题": 
+                case "选择题":
                     _currentType = text;
                     ClearViews();
                     this.panelSelect.Visible = true;
                     this.panelCompletion.Visible = false;
                     break;
                 default:
-                case "填空题": 
+                case "填空题":
                     _currentType = text;
                     ClearViews();
                     this.panelSelect.Visible = false;
@@ -226,7 +253,7 @@ namespace ExaminationServer {
             this.txtBoxResult.Text = "";
             this.cmboxResult.SelectedIndex = 0;
         }
-        
+
         /// <summary>
         /// 保存修改的题目
         /// </summary>
@@ -237,14 +264,15 @@ namespace ExaminationServer {
                 return false;
             }
             try {
-                using (SqlConnection conn = new SqlConnection (SQL_CON)) {
+                using (SqlConnection conn = new SqlConnection(SQL_CON)) {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("", conn);
                     string sql;
                     switch (_currentType) {
                         case "选择题":
                             sql = "update Subject set Abstract=@Abstract,SubType=@SubType,Result=@Result,SelectItem1=@SelectItem1,"
-                                + "SelectItem2=@SelectItem2,SelectItem3=@SelectItem3,SelectItem4=@SelectItem4 where Id = @Id";
+                                + "SelectItem2=@SelectItem2,SelectItem3=@SelectItem3,SelectItem4=@SelectItem4,SubLevel=@SubLevel"
+                                + ",SubAudio=@SubAudio,SubAudioName=@SubAudioName where Id = @Id";
                             cmd.CommandText = sql;
                             cmd.Parameters.AddWithValue("@SelectItem1", this.txtBoxResultA.Text);
                             cmd.Parameters.AddWithValue("@SelectItem2", this.txtBoxResultD.Text);
@@ -257,17 +285,20 @@ namespace ExaminationServer {
                             sql = "update Subject set Abstract=@Abstract,SubType=@SubType,Result=@Result where Id = @Id";
                             cmd.CommandText = sql;
                             cmd.Parameters.AddWithValue("@Result", this.txtBoxResult.Text);
-                            break; 
+                            break;
                     }
-                    cmd.Parameters.AddWithValue("@Abstract",this.txtBoxAbstract.Text);
-                    cmd.Parameters.AddWithValue("@SubType",_currentType);
-                    cmd.Parameters.AddWithValue("@Id",_currentSubject.Id);
+                    cmd.Parameters.AddWithValue("@Abstract", this.txtBoxAbstract.Text);
+                    cmd.Parameters.AddWithValue("@SubType", _currentType);
+                    cmd.Parameters.AddWithValue("@Id", _currentSubject.Id);
+                    cmd.Parameters.AddWithValue("@SubLevel", this.cmboxSubLevel.Text);
+                    cmd.Parameters.AddWithValue("@SubAudio", _fileStream);
+                    cmd.Parameters.AddWithValue("@SubAudioName", this.txtBoxFileName.Text);
                     cmd.ExecuteNonQuery();
                     conn.Close();
                     return true;
                 }
             } catch (Exception ex) {
-                MessageBox.Show("保存失败，错误原因："+ex.Message);
+                MessageBox.Show("保存失败，错误原因：" + ex.Message);
                 return false;
             }
         }
@@ -284,18 +315,18 @@ namespace ExaminationServer {
             }
             try {
 
-            using (SqlConnection conn = new SqlConnection (SQL_CON)) {
-                conn.Open();
-                string sql = "delete Subject where Id = @Id";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("Id", id);
-                cmd.ExecuteNonQuery();
-                conn.Close();
-                return true;
-            }
+                using (SqlConnection conn = new SqlConnection(SQL_CON)) {
+                    conn.Open();
+                    string sql = "delete Subject where Id = @Id";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("Id", id);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+                }
 
             } catch (Exception ex) {
-                MessageBox.Show("删除失败，错误原因："+ex.Message);
+                MessageBox.Show("删除失败，错误原因：" + ex.Message);
                 return false;
             }
         }
@@ -311,15 +342,101 @@ namespace ExaminationServer {
                 return;
             }
             this.cmboxSubType.Items.AddRange(types.ToArray());
+            this.cmboxSubType.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// 获取题目类型
+        /// </summary>
+        private void SetSubLevels() {
+            this.cmboxSubLevel.Items.Clear();
+            List<string> levels = GetSubLevels();
+            if (levels == null || levels.Count == 0) {
+                MessageBox.Show("没有找到题目等级！");
+                return;
+            }
+            this.cmboxSubLevel.Items.AddRange(levels.ToArray());
+            this.cmboxSubLevel.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// 加载文件
+        /// </summary>
+        private byte[] UploadFile() {
+            using (OpenFileDialog dialog = new OpenFileDialog()) {
+                dialog.Filter = "音频文件|*.wav;*.mp3";//文件扩展名
+                dialog.CheckFileExists = true;
+                dialog.Multiselect = false;
+                dialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                dialog.ShowDialog();
+
+                if (!string.IsNullOrEmpty(dialog.FileName)) {
+                    this.btnPlay.Enabled = false;
+                    try {
+                        byte[] byteArray = FileBinaryConvertHelper.File2Bytes(dialog.FileName);//文件转成byte二进制数组
+                        _fileName = dialog.FileName;
+                        this.txtBoxFileName.Text = dialog.SafeFileName;
+                        _isDirty = true;
+                        return byteArray;
+                    } catch (Exception ex) {
+                        MessageBox.Show(ex.Message);
+                        return null;
+                    }
+                }
+                this.txtBoxFileName.Text = "";
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 初始化播放插件
+        /// </summary>
+        /// <param name="fileName"></param>
+        private void InitPlayAudio(string fileName) {
+            if (_wavePlayer == null) {
+                _wavePlayer = new WaveOut();
+            }
+            var audioFileReader = new AudioFileReader(fileName);
+            audioFileReader.Volume = 1f;
+            _wavePlayer.Init(audioFileReader); 
+            this.btnPlay.Enabled = true;
+        }
+
+        /// <summary>
+        /// 初始化播放插件
+        /// </summary>
+        /// <param name="fileName"></param>
+        private void InitPlayAudio(byte[] file) {
+            if (file == null) {
+                return;
+            }
+            if (_wavePlayer == null) {
+                _wavePlayer = new WaveOut();
+            }
+            var format = Path.GetExtension(this.txtBoxFileName.Text);
+            switch (format) {
+                default:
+                case "mp3":
+                    WaveStream wavStream = new WaveFileReader(new MemoryStream(file));
+                    _wavePlayer.Init(wavStream);
+                    break;
+                case "wav":
+                    WaveStream stream = new Mp3FileReader(new MemoryStream(file));
+                    _wavePlayer.Init(stream);
+                    break;
+            }
+            this.btnPlay.Enabled = true;
         }
 
         #region 事件
         private void SubjectAddCtrl_Load(object sender, EventArgs e) {
+            SetSubjectTypes();
+            SetSubLevels();
             if (_isNew) {
-                SetSubjectTypes();
-                this.cmboxSubType.SelectedIndex = 0;
                 this.cmboxResult.SelectedIndex = 0;
+                return;
             }
+            SetContent(_id);
         }
 
         private void cmboxSubType_SelectedIndexChanged(object sender, EventArgs e) {
@@ -354,10 +471,44 @@ namespace ExaminationServer {
                 return;
             }
         }
-         
-        #endregion
 
-       
-        
+        private void btnOpenFile_Click(object sender, EventArgs e) { 
+            _fileStream = UploadFile();
+            if (_fileStream == null || _fileStream.Length == 0) {
+                return;
+            }
+            this.btnPlay.Enabled = true; 
+        }
+         
+        private void btnPlay_Click(object sender, EventArgs e) {
+            try {
+                
+                if (_isNew||_isDirty) {
+                    if (string.IsNullOrEmpty(_fileName)) {
+                        MessageBox.Show("没有上传音频文件！");
+                        return;
+                    }
+                    InitPlayAudio(_fileName);
+                } else { 
+                    if (string.IsNullOrEmpty(this.txtBoxFileName.Text)||this._fileStream == null||this._fileStream.Length==0) {
+                        MessageBox.Show("音频文件为空！");
+                        return;
+                    }
+                    InitPlayAudio(_fileStream);
+                }
+                _wavePlayer.Play();
+                this.btnStop.Enabled = true;
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnStop_Click(object sender, EventArgs e) {
+            if (_wavePlayer.PlaybackState == PlaybackState.Playing) {
+                _wavePlayer.Stop();
+            }
+        }
+        #endregion
+         
     }
 }

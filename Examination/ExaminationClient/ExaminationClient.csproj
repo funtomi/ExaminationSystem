@@ -103,6 +103,9 @@
     <Compile Include="UserRegisterForm.Designer.cs">
       <DependentUpon>UserRegisterForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ExaminationCtrl.resx">
+      <DependentUpon>ExaminationCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExaminationSelectCtrl.resx">
       <DependentUpon>ExaminationSelectCtrl.cs</DependentUpon>
     </EmbeddedResource>
