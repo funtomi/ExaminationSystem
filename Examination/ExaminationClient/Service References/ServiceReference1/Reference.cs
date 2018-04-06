@@ -9,137 +9,105 @@
 //------------------------------------------------------------------------------
 
 namespace ExaminationClient.ServiceReference1 {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/WcfServiceLibrary1")]
-    [System.SerializableAttribute()]
-    public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool BoolValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StringValueField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool BoolValue {
-            get {
-                return this.BoolValueField;
-            }
-            set {
-                if ((this.BoolValueField.Equals(value) != true)) {
-                    this.BoolValueField = value;
-                    this.RaisePropertyChanged("BoolValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StringValue {
-            get {
-                return this.StringValueField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.StringValueField, value) != true)) {
-                    this.StringValueField = value;
-                    this.RaisePropertyChanged("StringValue");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserInfo", Namespace="http://schemas.datacontract.org/2004/07/ExaminationEntity")]
-    [System.SerializableAttribute()]
-    public partial class UserInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        string GetData(int value);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UserLogin", ReplyAction="http://tempuri.org/IService1/UserLoginResponse")]
+        ExaminationClient.ServiceReference1.UserLoginResponse UserLogin(ExaminationClient.ServiceReference1.UserLoginRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        System.Threading.Tasks.Task<string> GetDataAsync(int value);
+        // CODEGEN: 正在生成消息协定，应为该操作具有多个返回值。
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UserLogin", ReplyAction="http://tempuri.org/IService1/UserLoginResponse")]
+        System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.UserLoginResponse> UserLoginAsync(ExaminationClient.ServiceReference1.UserLoginRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        ExaminationClient.ServiceReference1.CompositeType GetDataUsingDataContract(ExaminationClient.ServiceReference1.CompositeType composite);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/RegisterUser", ReplyAction="http://tempuri.org/IService1/RegisterUserResponse")]
+        ExaminationClient.ServiceReference1.RegisterUserResponse RegisterUser(ExaminationClient.ServiceReference1.RegisterUserRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(ExaminationClient.ServiceReference1.CompositeType composite);
+        // CODEGEN: 正在生成消息协定，应为该操作具有多个返回值。
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/RegisterUser", ReplyAction="http://tempuri.org/IService1/RegisterUserResponse")]
+        System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.RegisterUserResponse> RegisterUserAsync(ExaminationClient.ServiceReference1.RegisterUserRequest request);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UserLogin", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class UserLoginRequest {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUsers", ReplyAction="http://tempuri.org/IService1/GetUsersResponse")]
-        ExaminationClient.ServiceReference1.UserInfo GetUsers();
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string name;
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUsers", ReplyAction="http://tempuri.org/IService1/GetUsersResponse")]
-        System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.UserInfo> GetUsersAsync();
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string password;
+        
+        public UserLoginRequest() {
+        }
+        
+        public UserLoginRequest(string name, string password) {
+            this.name = name;
+            this.password = password;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UserLoginResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class UserLoginResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public bool UserLoginResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string errText;
+        
+        public UserLoginResponse() {
+        }
+        
+        public UserLoginResponse(bool UserLoginResult, string errText) {
+            this.UserLoginResult = UserLoginResult;
+            this.errText = errText;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RegisterUser", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class RegisterUserRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string name;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string password;
+        
+        public RegisterUserRequest() {
+        }
+        
+        public RegisterUserRequest(string name, string password) {
+            this.name = name;
+            this.password = password;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RegisterUserResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class RegisterUserResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public bool RegisterUserResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string errText;
+        
+        public RegisterUserResponse() {
+        }
+        
+        public RegisterUserResponse(bool RegisterUserResult, string errText) {
+            this.RegisterUserResult = RegisterUserResult;
+            this.errText = errText;
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -169,28 +137,40 @@ namespace ExaminationClient.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public string GetData(int value) {
-            return base.Channel.GetData(value);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        ExaminationClient.ServiceReference1.UserLoginResponse ExaminationClient.ServiceReference1.IService1.UserLogin(ExaminationClient.ServiceReference1.UserLoginRequest request) {
+            return base.Channel.UserLogin(request);
         }
         
-        public System.Threading.Tasks.Task<string> GetDataAsync(int value) {
-            return base.Channel.GetDataAsync(value);
+        public bool UserLogin(string name, string password, out string errText) {
+            ExaminationClient.ServiceReference1.UserLoginRequest inValue = new ExaminationClient.ServiceReference1.UserLoginRequest();
+            inValue.name = name;
+            inValue.password = password;
+            ExaminationClient.ServiceReference1.UserLoginResponse retVal = ((ExaminationClient.ServiceReference1.IService1)(this)).UserLogin(inValue);
+            errText = retVal.errText;
+            return retVal.UserLoginResult;
         }
         
-        public ExaminationClient.ServiceReference1.CompositeType GetDataUsingDataContract(ExaminationClient.ServiceReference1.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContract(composite);
+        public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.UserLoginResponse> UserLoginAsync(ExaminationClient.ServiceReference1.UserLoginRequest request) {
+            return base.Channel.UserLoginAsync(request);
         }
         
-        public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(ExaminationClient.ServiceReference1.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContractAsync(composite);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        ExaminationClient.ServiceReference1.RegisterUserResponse ExaminationClient.ServiceReference1.IService1.RegisterUser(ExaminationClient.ServiceReference1.RegisterUserRequest request) {
+            return base.Channel.RegisterUser(request);
         }
         
-        public ExaminationClient.ServiceReference1.UserInfo GetUsers() {
-            return base.Channel.GetUsers();
+        public bool RegisterUser(string name, string password, out string errText) {
+            ExaminationClient.ServiceReference1.RegisterUserRequest inValue = new ExaminationClient.ServiceReference1.RegisterUserRequest();
+            inValue.name = name;
+            inValue.password = password;
+            ExaminationClient.ServiceReference1.RegisterUserResponse retVal = ((ExaminationClient.ServiceReference1.IService1)(this)).RegisterUser(inValue);
+            errText = retVal.errText;
+            return retVal.RegisterUserResult;
         }
         
-        public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.UserInfo> GetUsersAsync() {
-            return base.Channel.GetUsersAsync();
+        public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.RegisterUserResponse> RegisterUserAsync(ExaminationClient.ServiceReference1.RegisterUserRequest request) {
+            return base.Channel.RegisterUserAsync(request);
         }
     }
 }

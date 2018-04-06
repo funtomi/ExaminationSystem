@@ -8,14 +8,13 @@ using System.Text;
 namespace WcfServiceLibrary1 {
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的接口名“IService1”。
     [ServiceContract]
-    public interface IService1 {
-        [OperationContract]
-        string GetData(int value);
+    public interface IService1 { 
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        bool UserLogin(string name, string password, out string errText);
 
-        // TODO: 在此添加您的服务操作
+        [OperationContract]
+        bool RegisterUser(string name, string password, out string errText);
     }
 
     // 使用下面示例中说明的数据约定将复合类型添加到服务操作。
