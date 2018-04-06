@@ -12,6 +12,9 @@ namespace ExaminationClient {
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.  
+            SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲  
         }
 
         protected override void WndProc(ref Message msg) {
@@ -25,6 +28,19 @@ namespace ExaminationClient {
             base.WndProc(ref msg);
         }
 
+        /// <summary>
+        /// 更换视图
+        /// </summary>
+        /// <param name="ctrl"></param>
+        private void ChangeFormTo(UserControl ctrl) {
+            foreach (Control item in this.panelChild.Controls) {
+                item.Dispose();
+            }
+            this.panelChild.Controls.Clear();
+            ctrl.Dock = DockStyle.Fill;
+            this.panelChild.Controls.Add(ctrl);
+        }
+
         #region 事件
         private void BaseForm_Load(object sender, EventArgs e) {
             this.skinEngine1.SkinFile = "MSN.ssk";
@@ -36,7 +52,23 @@ namespace ExaminationClient {
                 ServiceWindow.Service.Close();
             }
         }
+
+        private void menuItemStartExam_Click(object sender, EventArgs e) {
+            ExaminationSelectCtrl ctrl = new ExaminationSelectCtrl();
+            ctrl.StartExamEventHandel += new ExaminationSelectCtrl.StartExamEventDelegate(ExaminationSelectCtrl_StartExamEvent);
+            ChangeFormTo(ctrl);
+        }
+
+        private void ExaminationSelectCtrl_StartExamEvent(string subType, string subLevel, int subNum) {
+            if (string.IsNullOrEmpty(subType)||string.IsNullOrEmpty(subLevel)) {
+                MessageBox.Show("题目选择不能为空！");
+                return;
+            }
+            ExaminationCtrl ctrl = new ExaminationCtrl(subType,subLevel,subNum);
+            ChangeFormTo(ctrl);
+        }
         #endregion
+
         
     }
 }

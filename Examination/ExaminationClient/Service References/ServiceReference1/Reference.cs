@@ -28,6 +28,18 @@ namespace ExaminationClient.ServiceReference1 {
         // CODEGEN: 正在生成消息协定，应为该操作具有多个返回值。
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/RegisterUser", ReplyAction="http://tempuri.org/IService1/RegisterUserResponse")]
         System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.RegisterUserResponse> RegisterUserAsync(ExaminationClient.ServiceReference1.RegisterUserRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSubjectTypes", ReplyAction="http://tempuri.org/IService1/GetSubjectTypesResponse")]
+        string[] GetSubjectTypes();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSubjectTypes", ReplyAction="http://tempuri.org/IService1/GetSubjectTypesResponse")]
+        System.Threading.Tasks.Task<string[]> GetSubjectTypesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSubjectLevels", ReplyAction="http://tempuri.org/IService1/GetSubjectLevelsResponse")]
+        string[] GetSubjectLevels();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSubjectLevels", ReplyAction="http://tempuri.org/IService1/GetSubjectLevelsResponse")]
+        System.Threading.Tasks.Task<string[]> GetSubjectLevelsAsync();
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -171,6 +183,22 @@ namespace ExaminationClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.RegisterUserResponse> RegisterUserAsync(ExaminationClient.ServiceReference1.RegisterUserRequest request) {
             return base.Channel.RegisterUserAsync(request);
+        }
+        
+        public string[] GetSubjectTypes() {
+            return base.Channel.GetSubjectTypes();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetSubjectTypesAsync() {
+            return base.Channel.GetSubjectTypesAsync();
+        }
+        
+        public string[] GetSubjectLevels() {
+            return base.Channel.GetSubjectLevels();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetSubjectLevelsAsync() {
+            return base.Channel.GetSubjectLevelsAsync();
         }
     }
 }

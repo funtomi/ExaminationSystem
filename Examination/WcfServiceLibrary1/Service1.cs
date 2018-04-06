@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ExaminationHelper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -112,6 +114,50 @@ namespace WcfServiceLibrary1 {
                 }
             } catch (Exception) {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取题目类型
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetSubjectTypes() {
+            try {
+                using (SqlConnection conn = new SqlConnection (SQL_CON)) {
+                    conn.Open();
+                    var sql = "select DisplayName from SubjectType";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    SqlDataAdapter ada = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    ada.Fill(dt);
+                    var list = dt.AsEnumerable().Select(p=>p.Field<string>("DisplayName").ToString()).ToList<string>() as List<string>;
+                    conn.Close();
+                    return list;
+                }
+            } catch (Exception) {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取题目等级
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetSubjectLevels() {
+            try {
+                using (SqlConnection conn = new SqlConnection(SQL_CON)) {
+                    conn.Open();
+                    var sql = "select DisplayName from SubjectLevel";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    SqlDataAdapter ada = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    ada.Fill(dt);
+                    var list = dt.AsEnumerable().Select(p => p.Field<string>("DisplayName").ToString()).ToList<string>() as List<string>;
+                    conn.Close();
+                    return list;
+                }
+            } catch (Exception) {
+                return null;
             }
         }
     }

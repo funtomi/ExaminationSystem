@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExaminationEntity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Export\ExaminationEntity.dll</HintPath>
+    </Reference>
     <Reference Include="IrisSkin4, Version=2006.3.22.45, Culture=neutral, PublicKeyToken=127be25a6db25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Export\IrisSkin4.dll</HintPath>
@@ -54,7 +58,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseCtrl.Designer.cs">
+      <DependentUpon>BaseCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClientSocketHelper.cs" />
+    <Compile Include="ExaminationCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExaminationCtrl.Designer.cs">
+      <DependentUpon>ExaminationCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExaminationSelectCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExaminationSelectCtrl.Designer.cs">
+      <DependentUpon>ExaminationSelectCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +103,9 @@
     <Compile Include="UserRegisterForm.Designer.cs">
       <DependentUpon>UserRegisterForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ExaminationSelectCtrl.resx">
+      <DependentUpon>ExaminationSelectCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +140,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReference1\Service1.wsdl" />
+    <None Include="Service References\ServiceReference1\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceReference1\Service11.xsd">
       <SubType>Designer</SubType>
     </None>
