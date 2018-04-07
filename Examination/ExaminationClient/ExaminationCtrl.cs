@@ -15,8 +15,10 @@ namespace ExaminationClient {
         private int _examTime;
         private int _restTime;
         private ExamSubjectCtrl[] _examSubs;
-        public delegate void SubmitEventDelegate(ExamSubjectCtrl[] ctrls,string subType,int examTime);
+        public delegate void SubmitEventDelegate(ExamSubjectCtrl[] ctrls, string subType, int examTime);
+        public delegate void ResultEventDelegate(ExamSubjectCtrl[] ctrls);
         public SubmitEventDelegate SubmitEvent;
+        public ResultEventDelegate ResultEvent;
         private bool _isRedo = false;
 
         public ExaminationCtrl() {
@@ -50,6 +52,12 @@ namespace ExaminationClient {
         /// 设置考试时间
         /// </summary>
         private void SetExamTime() {
+            if (_isRedo) {
+                this.lblTime.Visible = false;
+                this.label4.Visible = false;
+                this.label3.Visible = false;
+                return;
+            }
             this.lblTime.Text = GetTimeString(_examTime);
             _restTime = _examTime * 60;
             this.timer1.Tick += timer1_Tick;
@@ -74,6 +82,11 @@ namespace ExaminationClient {
         /// 设置题目页数
         /// </summary>
         private void SetSubNum() {
+            if (_isRedo) {
+                this.btnSubmit.Visible = false;
+                this.btnResult.Visible = true;
+                _subNum = _examSubs == null || _examSubs.Length == 0 ? 0 : _examSubs.Length;
+            }
             if (_subNum < 0) {
                 this.lblSubNum.Text = "/0";
                 this.cmboxSubSeq.Items.Clear();
@@ -115,13 +128,16 @@ namespace ExaminationClient {
             this.cmboxSubSeq.SelectedIndex = i;
         }
 
-
         /// <summary>
         /// 设置题目
         /// </summary>
         private void SetSubjects() {
             if (_subNum < 0) {
                 ClearSubs();
+                return;
+            }
+            if (_isRedo) {
+                ChangeFormTo(0);
                 return;
             }
             CreateExamSubCtrls();
@@ -150,9 +166,9 @@ namespace ExaminationClient {
 
         #region 事件
         private void ExaminationCtrl_Load(object sender, EventArgs e) {
-            SetExamTime();
-            SetSubNum();
-            SetSubjects();
+                SetExamTime();
+                SetSubNum();
+                SetSubjects();  
         }
 
         void timer1_Tick(object sender, EventArgs e) {
@@ -200,8 +216,21 @@ namespace ExaminationClient {
                 return;
             }
 
-        } 
+        }
+
+        private void btnResult_Click(object sender, EventArgs e) {
+            if (_examSubs.Length < 1) {
+                MessageBox.Show("当前没有试题！");
+                return;
+            }
+            if (ResultEvent != null) {
+                ResultEvent(_examSubs);
+                return;
+            }
+        }
         #endregion
+
+        
 
          
     }

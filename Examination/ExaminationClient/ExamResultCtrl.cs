@@ -12,16 +12,25 @@ namespace ExaminationClient {
         private string _subType;
         private int _examTime;
         private List<ExamSubjectCtrl> _errCtrls;
-
+        public delegate void SubjectRedoEventDelegate(ExamSubjectCtrl[] examSubCtrls);
+        public SubjectRedoEventDelegate SubjectRedoEvent;
+        public delegate void SubjectResultEventDelegate(ExamSubjectCtrl[] examSubCtrls);
+        public SubjectResultEventDelegate SubjectResultEvent;
         public ExamResultCtrl() {
             InitializeComponent();
         }
 
         public ExamResultCtrl(ExamSubjectCtrl[] ctrls,string subType,int examTime):this() {
-            // TODO: Complete member initialization
             this._ctrls = ctrls;
             _subType = subType;
             _examTime = examTime;
+        }
+
+        public ExamResultCtrl(ExamSubjectCtrl[] ctrls) {
+            this._ctrls = ctrls;
+            _subType = "错题重做";
+            this.label4.Visible = false;
+            this.lblExamTime.Visible = false;
         }
 
         /// <summary>
@@ -79,21 +88,36 @@ namespace ExaminationClient {
             SetSubInfo();
             var score = CaculateScore();
             SetScore(score);
+            if (_subType=="错题重做") {
+                return;
+            }
             string errText;
             if (!ServiceWindow.Service.SaveScore(ServiceWindow.UserId, ServiceWindow.UserName, score, _ctrls.Length, _ctrls[0].SubjectInfo.SubLevel, out errText)) {
                 MessageBox.Show("成绩保存失败！错误原因："+errText);
                 return;
             }
         }
-        #endregion
 
         private void btnRedo_Click(object sender, EventArgs e) {
-
+            if (_errCtrls == null || _errCtrls.Count == 0) {
+                MessageBox.Show("没有错题！");
+                return;
+            }
+            if (SubjectRedoEvent != null) {
+                SubjectRedoEvent(_errCtrls.ToArray());
+            }
         }
 
         private void btnResult_Click(object sender, EventArgs e) {
-
+            if (_ctrls == null || _ctrls.Length == 0) {
+                MessageBox.Show("没有测试的题目！");
+                return;
+            }
+            if (SubjectResultEvent != null) {
+                SubjectResultEvent(_ctrls);
+            }
         }
-
+        #endregion
+         
     }
 }

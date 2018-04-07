@@ -165,6 +165,9 @@
     <None Include="Service References\ServiceReference1\ExaminationClient.ServiceReference1.RegisterUserResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\ServiceReference1\ExaminationClient.ServiceReference1.SaveScoreResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ServiceReference1\ExaminationClient.ServiceReference1.UserLoginResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

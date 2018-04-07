@@ -36,6 +36,7 @@
             this.lblTime = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnResult = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel1
@@ -164,9 +165,23 @@
             // 
             this.timer1.Interval = 1000;
             // 
+            // btnResult
+            // 
+            this.btnResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnResult.Font = new System.Drawing.Font("微软雅黑", 9.07563F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnResult.Location = new System.Drawing.Point(773, 477);
+            this.btnResult.Name = "btnResult";
+            this.btnResult.Size = new System.Drawing.Size(108, 40);
+            this.btnResult.TabIndex = 12;
+            this.btnResult.Text = "错题评分";
+            this.btnResult.UseVisualStyleBackColor = true;
+            this.btnResult.Visible = false;
+            this.btnResult.Click += new System.EventHandler(this.btnResult_Click);
+            // 
             // ExaminationCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.Controls.Add(this.btnResult);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblTime);
@@ -200,5 +215,6 @@
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnResult;
     }
 }

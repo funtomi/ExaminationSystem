@@ -71,6 +71,26 @@ namespace ExaminationClient {
 
         private void ExaminationCtrl_SubmitEvent(ExamSubjectCtrl[] ctrls,string subType,int examTime) {
             ExamResultCtrl ctrl = new ExamResultCtrl(ctrls,subType,examTime);
+            ctrl.SubjectRedoEvent += new ExamResultCtrl.SubjectRedoEventDelegate(SubjectRedoEventHandle);
+            ctrl.SubjectResultEvent += new ExamResultCtrl.SubjectResultEventDelegate(ExamResultCtrl_SubjectResultEvent);
+            ChangeFormTo(ctrl);
+        }
+
+        private void ExamResultCtrl_SubjectResultEvent(ExamSubjectCtrl[] examSubCtrls) {
+            SubjectResultCtrl ctrl = new SubjectResultCtrl(examSubCtrls);
+            ChangeFormTo(ctrl);
+        }
+
+        private void SubjectRedoEventHandle(ExamSubjectCtrl[] examSubCtrls) {
+            ExaminationCtrl ctrl = new ExaminationCtrl(examSubCtrls);
+            ctrl.ResultEvent += new ExaminationCtrl.ResultEventDelegate(ResultEventHandle);
+            ChangeFormTo(ctrl);
+        }
+
+        private void ResultEventHandle(ExamSubjectCtrl[] ctrls) {
+            ExamResultCtrl ctrl = new ExamResultCtrl(ctrls);
+            ctrl.SubjectRedoEvent += new ExamResultCtrl.SubjectRedoEventDelegate(SubjectRedoEventHandle);
+            ctrl.SubjectResultEvent += new ExamResultCtrl.SubjectResultEventDelegate(ExamResultCtrl_SubjectResultEvent);
             ChangeFormTo(ctrl);
         }
         #endregion
