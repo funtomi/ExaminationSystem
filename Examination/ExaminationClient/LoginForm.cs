@@ -32,10 +32,15 @@ namespace ExaminationClient {
 
         private void UserLogin() {
             string errText;
-            if (!ServiceWindow.Service.UserLogin(this.txtBoxUserName.Text, this.txtBoxPassword.Text, out errText)) {
+            Guid userId;
+            if (!ServiceWindow.Service.UserLogin(this.txtBoxUserName.Text, this.txtBoxPassword.Text, out errText,out userId)) {
+                ServiceWindow.UserId = Guid.Empty;
+                ServiceWindow.UserName = null;
                 MessageBox.Show("登录失败，错误原因："+errText);
                 return;
             }
+            ServiceWindow.UserId = userId;
+            ServiceWindow.UserName = this.txtBoxUserName.Text;
             MainForm form = new MainForm();
             form.Show();
             this.Dispose(false);

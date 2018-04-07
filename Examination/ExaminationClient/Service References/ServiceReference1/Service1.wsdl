@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:8002/Service1?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8002/Service1?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8002/Service1?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8002/Service1?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ExaminationEntity" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService1_UserLogin_InputMessage">
@@ -31,6 +32,18 @@
   <wsdl:message name="IService1_GetSubjectLevels_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSubjectLevelsResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetSubjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubjects" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetSubjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SaveScore_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveScore" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SaveScore_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveScoreResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="UserLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/UserLogin" message="tns:IService1_UserLogin_InputMessage" />
@@ -47,6 +60,14 @@
     <wsdl:operation name="GetSubjectLevels">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetSubjectLevels" message="tns:IService1_GetSubjectLevels_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetSubjectLevelsResponse" message="tns:IService1_GetSubjectLevels_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubjects">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetSubjects" message="tns:IService1_GetSubjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetSubjectsResponse" message="tns:IService1_GetSubjects_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveScore">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SaveScore" message="tns:IService1_SaveScore_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SaveScoreResponse" message="tns:IService1_SaveScore_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -80,6 +101,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetSubjectLevels">
       <soap:operation soapAction="http://tempuri.org/IService1/GetSubjectLevels" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubjects">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetSubjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveScore">
+      <soap:operation soapAction="http://tempuri.org/IService1/SaveScore" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

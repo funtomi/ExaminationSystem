@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExaminationEntity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,7 +12,7 @@ namespace WcfServiceLibrary1 {
     public interface IService1 { 
 
         [OperationContract]
-        bool UserLogin(string name, string password, out string errText);
+        bool UserLogin(string name, string password, out string errText,out Guid userId);
 
         [OperationContract]
         bool RegisterUser(string name, string password, out string errText);
@@ -21,6 +22,12 @@ namespace WcfServiceLibrary1 {
 
         [OperationContract]
         List<string> GetSubjectLevels();
+
+        [OperationContract]
+        List<SubjectInfo> GetSubjects(int num, string level, string type, out string errText);
+
+        [OperationContract]
+        bool SaveScore(Guid id, string name, int score, int subNum, string subLevel, out string errText);
     }
 
     // 使用下面示例中说明的数据约定将复合类型添加到服务操作。

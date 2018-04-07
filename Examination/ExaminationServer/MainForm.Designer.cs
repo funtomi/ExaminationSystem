@@ -95,14 +95,14 @@
             // menuItemAddSubject
             // 
             this.menuItemAddSubject.Name = "menuItemAddSubject";
-            this.menuItemAddSubject.Size = new System.Drawing.Size(114, 26);
+            this.menuItemAddSubject.Size = new System.Drawing.Size(180, 26);
             this.menuItemAddSubject.Text = "新增";
             this.menuItemAddSubject.Click += new System.EventHandler(this.menuItemAddSubject_Click);
             // 
             // menuItemQuerySubject
             // 
             this.menuItemQuerySubject.Name = "menuItemQuerySubject";
-            this.menuItemQuerySubject.Size = new System.Drawing.Size(114, 26);
+            this.menuItemQuerySubject.Size = new System.Drawing.Size(180, 26);
             this.menuItemQuerySubject.Text = "查询";
             this.menuItemQuerySubject.Click += new System.EventHandler(this.menuItemQuerySubject_Click);
             // 
@@ -118,14 +118,14 @@
             // menuItemSubjectType
             // 
             this.menuItemSubjectType.Name = "menuItemSubjectType";
-            this.menuItemSubjectType.Size = new System.Drawing.Size(144, 26);
+            this.menuItemSubjectType.Size = new System.Drawing.Size(180, 26);
             this.menuItemSubjectType.Text = "题目类型";
             this.menuItemSubjectType.Click += new System.EventHandler(this.menuItemSubjectType_Click);
             // 
             // menuItemSubjectLevel
             // 
             this.menuItemSubjectLevel.Name = "menuItemSubjectLevel";
-            this.menuItemSubjectLevel.Size = new System.Drawing.Size(144, 26);
+            this.menuItemSubjectLevel.Size = new System.Drawing.Size(180, 26);
             this.menuItemSubjectLevel.Text = "题目等级";
             this.menuItemSubjectLevel.Click += new System.EventHandler(this.menuItemSubjectLevel_Click);
             // 
@@ -141,14 +141,14 @@
             // menuItemUserRegister
             // 
             this.menuItemUserRegister.Name = "menuItemUserRegister";
-            this.menuItemUserRegister.Size = new System.Drawing.Size(174, 26);
+            this.menuItemUserRegister.Size = new System.Drawing.Size(180, 26);
             this.menuItemUserRegister.Text = "用户注册";
             this.menuItemUserRegister.Click += new System.EventHandler(this.menuItemUserRegister_Click);
             // 
             // menuItemUserScoreInput
             // 
             this.menuItemUserScoreInput.Name = "menuItemUserScoreInput";
-            this.menuItemUserScoreInput.Size = new System.Drawing.Size(174, 26);
+            this.menuItemUserScoreInput.Size = new System.Drawing.Size(180, 26);
             this.menuItemUserScoreInput.Text = "用户成绩记录";
             this.menuItemUserScoreInput.Click += new System.EventHandler(this.menuItemUserScoreInput_Click);
             // 
@@ -175,7 +175,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "考试管理系统";
+            this.Text = "英语听力与会话智能训练系统";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BaseForm_FormClosed);
             this.Load += new System.EventHandler(this.BaseForm_Load);
             this.statusStrip1.ResumeLayout(false);

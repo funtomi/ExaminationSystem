@@ -43,6 +43,10 @@
     <Reference Include="MetroFramework">
       <HintPath>..\..\..\..\语音识别图片\metroframework-modern-ui-master\metroframework-modern-ui-master\MetroFramework.Demo\bin\Debug\MetroFramework.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Export\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -77,6 +81,18 @@
     <Compile Include="ExaminationSelectCtrl.Designer.cs">
       <DependentUpon>ExaminationSelectCtrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExamResultCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExamResultCtrl.Designer.cs">
+      <DependentUpon>ExamResultCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExamSubjectCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExamSubjectCtrl.Designer.cs">
+      <DependentUpon>ExamSubjectCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +125,12 @@
     <EmbeddedResource Include="ExaminationSelectCtrl.resx">
       <DependentUpon>ExaminationSelectCtrl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExamResultCtrl.resx">
+      <DependentUpon>ExamResultCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExamSubjectCtrl.resx">
+      <DependentUpon>ExamSubjectCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -127,6 +149,7 @@
     <EmbeddedResource Include="UserRegisterForm.resx">
       <DependentUpon>UserRegisterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\ExaminationEntity.SubjectInfo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -136,6 +159,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\ServiceReference1\ExaminationClient.ServiceReference1.GetSubjectsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ServiceReference1\ExaminationClient.ServiceReference1.RegisterUserResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -153,6 +179,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceReference1\Service13.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\Service131.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

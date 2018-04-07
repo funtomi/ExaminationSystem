@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ExaminationClient {
-    public static class ServiceWindow { 
+    public class ServiceWindow { 
         /// <summary>
         /// 服务
         /// </summary>
@@ -22,6 +22,7 @@ namespace ExaminationClient {
             }
         }
         private static ServiceReference1.Service1Client _service = new ServiceReference1.Service1Client();
-
+        public static Guid UserId { get; set; }
+        public static string UserName { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ExaminationHelper;
+﻿using ExaminationEntity;
+using ExaminationHelper;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,8 +31,9 @@ namespace WcfServiceLibrary1 {
         /// <param name="password"></param>
         /// <param name="errText"></param>
         /// <returns></returns>
-        public bool UserLogin(string name, string password, out string errText) {
+        public bool UserLogin(string name, string password, out string errText,out Guid userId) {
             errText = "";
+            userId = Guid.Empty;
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(password)) {
                 errText = "用户名或密码不能为空！";
                 return false;
@@ -39,12 +41,13 @@ namespace WcfServiceLibrary1 {
             try {
                 using (SqlConnection conn = new SqlConnection(SQL_CON)) {
                     conn.Open();
-                    var sql = "select * from UserInfo where Name=@Name and Password = @Password";
+                    var sql = "select Id from UserInfo where Name=@Name and Password = @Password";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@Name", name);
                     cmd.Parameters.AddWithValue("@Password", password);
-                    var num = cmd.ExecuteScalar();
-                    if (num != null) {
+                    var id = cmd.ExecuteScalar().ToString();
+                    if (string.IsNullOrEmpty(id)) {
+                        userId = Guid.Parse(id);
                         return true;
                     }
                     errText = "用户名或密码错误，请检查！";
@@ -158,6 +161,86 @@ namespace WcfServiceLibrary1 {
                 }
             } catch (Exception) {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取随机题目
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="level"></param>
+        /// <param name="type"></param>
+        /// <param name="errText"></param>
+        /// <returns></returns>
+        public List<SubjectInfo> GetSubjects(int num, string level, string type,out string errText) {
+            errText = "";
+            if (num<0||string.IsNullOrEmpty(level)||string.IsNullOrEmpty(type)) {
+                errText = "获取考试题目失败，请重新选择考试！";
+                return null;
+            }
+            try {
+                using (SqlConnection conn = new SqlConnection(SQL_CON)) {
+                    conn.Open();
+                    var sql = "select top " + num.ToString() + " * from Subject where SubLevel=@SubLevel order by NEWID() ";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+
+                    if (type != "混合") {
+                        cmd.CommandText = "select top " + num.ToString() + " * from Subject where SubLevel=@SubLevel and SubType=@SubType  order by NEWID()";
+                       cmd.Parameters.AddWithValue("@SubType", type);
+                    }
+                    cmd.Parameters.AddWithValue("@SubLevel",level);
+                    SqlDataAdapter ada = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    ada.Fill(dt);
+                    var list = DataTableHelper.DataTableToList<SubjectInfo>(dt) as List<SubjectInfo>;
+                    conn.Close();
+                    return list;
+                }
+            } catch (Exception ex) {
+                errText = ex.Message;
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 保存成绩
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="score"></param>
+        /// <param name="subNum"></param>
+        /// <param name="subLevel"></param>
+        /// <param name="errText"></param>
+        /// <returns></returns>
+        public bool SaveScore(Guid id, string name, int score, int subNum, string subLevel,out string errText) {
+            errText = "";
+            if (id==null||string.IsNullOrEmpty(name)) {
+                errText = "找不到目标用户！";
+                return false;
+            }
+            try {
+                using (SqlConnection conn = new SqlConnection(SQL_CON)) {
+                    conn.Open();
+                    var sql = "declare @HighestScore int "
+                          + "set @HighestScore = (select MAX(Record)  from UserRecord where UserId=@UserId) "
+                        + "insert into UserRecord (Id,UserId,Name,Record,TestTime,SubjectNum,SubjectLevel,TestTimes,HighestScore)" +
+                            "values(@Id,@UserId,@Name,@Record,SYSDATETIME(),@SubjectNum,@SubjectLevel," +
+                              "(select COUNT(Name) from UserRecord where UserId=@UserId)+1," +
+                        "(select num=case when @HighestScore>=@Record then @HighestScore when @HighestScore<@Record then @Record else @Record end ))";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@Id", Guid.NewGuid());
+                    cmd.Parameters.AddWithValue("@UserId", id);
+                    cmd.Parameters.AddWithValue("Name", name);
+                    cmd.Parameters.AddWithValue("@Record", score);
+                    cmd.Parameters.AddWithValue("SubjectNum", subNum);
+                    cmd.Parameters.AddWithValue("@SubjectLevel", subLevel);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+                }
+            } catch (Exception ex) {
+                errText = ex.Message;
+                return false;
             }
         }
     }

@@ -59,12 +59,18 @@ namespace ExaminationClient {
             ChangeFormTo(ctrl);
         }
 
-        private void ExaminationSelectCtrl_StartExamEvent(string subType, string subLevel, int subNum) {
+        private void ExaminationSelectCtrl_StartExamEvent(string subType, string subLevel, int subNum,int examTime) {
             if (string.IsNullOrEmpty(subType)||string.IsNullOrEmpty(subLevel)) {
                 MessageBox.Show("题目选择不能为空！");
                 return;
             }
-            ExaminationCtrl ctrl = new ExaminationCtrl(subType,subLevel,subNum);
+            ExaminationCtrl ctrl = new ExaminationCtrl(subType, subLevel, subNum, examTime);
+            ctrl.SubmitEvent += new ExaminationCtrl.SubmitEventDelegate(ExaminationCtrl_SubmitEvent);
+            ChangeFormTo(ctrl);
+        }
+
+        private void ExaminationCtrl_SubmitEvent(ExamSubjectCtrl[] ctrls,string subType,int examTime) {
+            ExamResultCtrl ctrl = new ExamResultCtrl(ctrls,subType,examTime);
             ChangeFormTo(ctrl);
         }
         #endregion

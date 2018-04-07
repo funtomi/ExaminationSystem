@@ -16,7 +16,7 @@ namespace ExaminationClient {
             SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲 
         }
 
-        public delegate void StartExamEventDelegate(string subType,string subLevel,int subNum);
+        public delegate void StartExamEventDelegate(string subType,string subLevel,int subNum,int examTime);
         public StartExamEventDelegate StartExamEventHandel;
 
         /// <summary>
@@ -28,7 +28,9 @@ namespace ExaminationClient {
                 this.cmboxSubType.DataSource = null;
                 return;
             }
-            this.cmboxSubType.DataSource = list;
+            var list2 = new List<string>(list);
+            list2.Add("混合");
+            this.cmboxSubType.DataSource = list2;
             this.cmboxSubType.SelectedIndex = 0;
         }
 
@@ -54,7 +56,21 @@ namespace ExaminationClient {
                 MessageBox.Show("题目数量输入不正确！");
                 return false;
             }
+            if (!Regex.IsMatch(this.txtboxExamTime.Text.Trim(), "^\\d+$")) {
+                MessageBox.Show("考试时间输入不正确！");
+                return false;
+            }
             return true;
+        }
+
+        private void StratExam() {
+            if (!InputValidator()) {
+                return;
+            }
+            if (StartExamEventHandel != null) {
+                StartExamEventHandel(this.cmboxSubType.SelectedValue.ToString(), this.cmboxSubLevel.SelectedValue.ToString(),
+                    Convert.ToInt32(this.txtBoxSubNumber.Text),Convert.ToInt32(this.txtboxExamTime.Text));
+            }
         }
 
         #region 事件
@@ -66,17 +82,16 @@ namespace ExaminationClient {
         private void txtBoxSubNumber_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar >= 47 && e.KeyChar <= 58) {
                 e.Handled = false;
+                return;
+            }
+            if (e.KeyChar == 13) {
+                StratExam();
+                return;
             }
         }
 
         private void btnStart_Click(object sender, EventArgs e) {
-            if (!InputValidator()) {
-                return;
-            }
-            if (StartExamEventHandel != null) {
-                StartExamEventHandel(this.cmboxSubType.SelectedValue.ToString(), this.cmboxSubLevel.SelectedValue.ToString(),
-                    Convert.ToInt32(this.txtBoxSubNumber.Text));
-            }
+            StratExam();
         }
         #endregion 
          

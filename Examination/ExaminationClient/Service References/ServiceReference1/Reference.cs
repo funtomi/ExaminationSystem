@@ -40,6 +40,20 @@ namespace ExaminationClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSubjectLevels", ReplyAction="http://tempuri.org/IService1/GetSubjectLevelsResponse")]
         System.Threading.Tasks.Task<string[]> GetSubjectLevelsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSubjects", ReplyAction="http://tempuri.org/IService1/GetSubjectsResponse")]
+        ExaminationClient.ServiceReference1.GetSubjectsResponse GetSubjects(ExaminationClient.ServiceReference1.GetSubjectsRequest request);
+        
+        // CODEGEN: 正在生成消息协定，应为该操作具有多个返回值。
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSubjects", ReplyAction="http://tempuri.org/IService1/GetSubjectsResponse")]
+        System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.GetSubjectsResponse> GetSubjectsAsync(ExaminationClient.ServiceReference1.GetSubjectsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SaveScore", ReplyAction="http://tempuri.org/IService1/SaveScoreResponse")]
+        ExaminationClient.ServiceReference1.SaveScoreResponse SaveScore(ExaminationClient.ServiceReference1.SaveScoreRequest request);
+        
+        // CODEGEN: 正在生成消息协定，应为该操作具有多个返回值。
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SaveScore", ReplyAction="http://tempuri.org/IService1/SaveScoreResponse")]
+        System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.SaveScoreResponse> SaveScoreAsync(ExaminationClient.ServiceReference1.SaveScoreRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -73,12 +87,16 @@ namespace ExaminationClient.ServiceReference1 {
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
         public string errText;
         
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public System.Guid userId;
+        
         public UserLoginResponse() {
         }
         
-        public UserLoginResponse(bool UserLoginResult, string errText) {
+        public UserLoginResponse(bool UserLoginResult, string errText, System.Guid userId) {
             this.UserLoginResult = UserLoginResult;
             this.errText = errText;
+            this.userId = userId;
         }
     }
     
@@ -122,6 +140,102 @@ namespace ExaminationClient.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetSubjects", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetSubjectsRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public int num;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string level;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public string type;
+        
+        public GetSubjectsRequest() {
+        }
+        
+        public GetSubjectsRequest(int num, string level, string type) {
+            this.num = num;
+            this.level = level;
+            this.type = type;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetSubjectsResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetSubjectsResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public ExaminationEntity.SubjectInfo[] GetSubjectsResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string errText;
+        
+        public GetSubjectsResponse() {
+        }
+        
+        public GetSubjectsResponse(ExaminationEntity.SubjectInfo[] GetSubjectsResult, string errText) {
+            this.GetSubjectsResult = GetSubjectsResult;
+            this.errText = errText;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SaveScore", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SaveScoreRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public System.Guid id;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string name;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public int score;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
+        public int subNum;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=4)]
+        public string subLevel;
+        
+        public SaveScoreRequest() {
+        }
+        
+        public SaveScoreRequest(System.Guid id, string name, int score, int subNum, string subLevel) {
+            this.id = id;
+            this.name = name;
+            this.score = score;
+            this.subNum = subNum;
+            this.subLevel = subLevel;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SaveScoreResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SaveScoreResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public bool SaveScoreResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string errText;
+        
+        public SaveScoreResponse() {
+        }
+        
+        public SaveScoreResponse(bool SaveScoreResult, string errText) {
+            this.SaveScoreResult = SaveScoreResult;
+            this.errText = errText;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IService1Channel : ExaminationClient.ServiceReference1.IService1, System.ServiceModel.IClientChannel {
     }
@@ -154,12 +268,13 @@ namespace ExaminationClient.ServiceReference1 {
             return base.Channel.UserLogin(request);
         }
         
-        public bool UserLogin(string name, string password, out string errText) {
+        public bool UserLogin(string name, string password, out string errText, out System.Guid userId) {
             ExaminationClient.ServiceReference1.UserLoginRequest inValue = new ExaminationClient.ServiceReference1.UserLoginRequest();
             inValue.name = name;
             inValue.password = password;
             ExaminationClient.ServiceReference1.UserLoginResponse retVal = ((ExaminationClient.ServiceReference1.IService1)(this)).UserLogin(inValue);
             errText = retVal.errText;
+            userId = retVal.userId;
             return retVal.UserLoginResult;
         }
         
@@ -199,6 +314,46 @@ namespace ExaminationClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<string[]> GetSubjectLevelsAsync() {
             return base.Channel.GetSubjectLevelsAsync();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        ExaminationClient.ServiceReference1.GetSubjectsResponse ExaminationClient.ServiceReference1.IService1.GetSubjects(ExaminationClient.ServiceReference1.GetSubjectsRequest request) {
+            return base.Channel.GetSubjects(request);
+        }
+        
+        public ExaminationEntity.SubjectInfo[] GetSubjects(int num, string level, string type, out string errText) {
+            ExaminationClient.ServiceReference1.GetSubjectsRequest inValue = new ExaminationClient.ServiceReference1.GetSubjectsRequest();
+            inValue.num = num;
+            inValue.level = level;
+            inValue.type = type;
+            ExaminationClient.ServiceReference1.GetSubjectsResponse retVal = ((ExaminationClient.ServiceReference1.IService1)(this)).GetSubjects(inValue);
+            errText = retVal.errText;
+            return retVal.GetSubjectsResult;
+        }
+        
+        public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.GetSubjectsResponse> GetSubjectsAsync(ExaminationClient.ServiceReference1.GetSubjectsRequest request) {
+            return base.Channel.GetSubjectsAsync(request);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        ExaminationClient.ServiceReference1.SaveScoreResponse ExaminationClient.ServiceReference1.IService1.SaveScore(ExaminationClient.ServiceReference1.SaveScoreRequest request) {
+            return base.Channel.SaveScore(request);
+        }
+        
+        public bool SaveScore(System.Guid id, string name, int score, int subNum, string subLevel, out string errText) {
+            ExaminationClient.ServiceReference1.SaveScoreRequest inValue = new ExaminationClient.ServiceReference1.SaveScoreRequest();
+            inValue.id = id;
+            inValue.name = name;
+            inValue.score = score;
+            inValue.subNum = subNum;
+            inValue.subLevel = subLevel;
+            ExaminationClient.ServiceReference1.SaveScoreResponse retVal = ((ExaminationClient.ServiceReference1.IService1)(this)).SaveScore(inValue);
+            errText = retVal.errText;
+            return retVal.SaveScoreResult;
+        }
+        
+        public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.SaveScoreResponse> SaveScoreAsync(ExaminationClient.ServiceReference1.SaveScoreRequest request) {
+            return base.Channel.SaveScoreAsync(request);
         }
     }
 }
