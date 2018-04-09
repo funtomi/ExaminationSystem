@@ -54,6 +54,13 @@ namespace ExaminationClient.ServiceReference1 {
         // CODEGEN: 正在生成消息协定，应为该操作具有多个返回值。
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SaveScore", ReplyAction="http://tempuri.org/IService1/SaveScoreResponse")]
         System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.SaveScoreResponse> SaveScoreAsync(ExaminationClient.ServiceReference1.SaveScoreRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudyData", ReplyAction="http://tempuri.org/IService1/GetStudyDataResponse")]
+        ExaminationClient.ServiceReference1.GetStudyDataResponse GetStudyData(ExaminationClient.ServiceReference1.GetStudyDataRequest request);
+        
+        // CODEGEN: 正在生成消息协定，应为该操作具有多个返回值。
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudyData", ReplyAction="http://tempuri.org/IService1/GetStudyDataResponse")]
+        System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.GetStudyDataResponse> GetStudyDataAsync(ExaminationClient.ServiceReference1.GetStudyDataRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -236,6 +243,54 @@ namespace ExaminationClient.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetStudyData", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetStudyDataRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public System.Guid id;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string name;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public System.DateTime start;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
+        public System.DateTime end;
+        
+        public GetStudyDataRequest() {
+        }
+        
+        public GetStudyDataRequest(System.Guid id, string name, System.DateTime start, System.DateTime end) {
+            this.id = id;
+            this.name = name;
+            this.start = start;
+            this.end = end;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetStudyDataResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetStudyDataResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public System.Data.DataTable GetStudyDataResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string errText;
+        
+        public GetStudyDataResponse() {
+        }
+        
+        public GetStudyDataResponse(System.Data.DataTable GetStudyDataResult, string errText) {
+            this.GetStudyDataResult = GetStudyDataResult;
+            this.errText = errText;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IService1Channel : ExaminationClient.ServiceReference1.IService1, System.ServiceModel.IClientChannel {
     }
@@ -354,6 +409,26 @@ namespace ExaminationClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.SaveScoreResponse> SaveScoreAsync(ExaminationClient.ServiceReference1.SaveScoreRequest request) {
             return base.Channel.SaveScoreAsync(request);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        ExaminationClient.ServiceReference1.GetStudyDataResponse ExaminationClient.ServiceReference1.IService1.GetStudyData(ExaminationClient.ServiceReference1.GetStudyDataRequest request) {
+            return base.Channel.GetStudyData(request);
+        }
+        
+        public System.Data.DataTable GetStudyData(System.Guid id, string name, System.DateTime start, System.DateTime end, out string errText) {
+            ExaminationClient.ServiceReference1.GetStudyDataRequest inValue = new ExaminationClient.ServiceReference1.GetStudyDataRequest();
+            inValue.id = id;
+            inValue.name = name;
+            inValue.start = start;
+            inValue.end = end;
+            ExaminationClient.ServiceReference1.GetStudyDataResponse retVal = ((ExaminationClient.ServiceReference1.IService1)(this)).GetStudyData(inValue);
+            errText = retVal.errText;
+            return retVal.GetStudyDataResult;
+        }
+        
+        public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.GetStudyDataResponse> GetStudyDataAsync(ExaminationClient.ServiceReference1.GetStudyDataRequest request) {
+            return base.Channel.GetStudyDataAsync(request);
         }
     }
 }

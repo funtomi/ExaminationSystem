@@ -243,5 +243,36 @@ namespace WcfServiceLibrary1 {
                 return false;
             }
         }
+
+        public DataTable GetStudyData(Guid id, string name, DateTime start, DateTime end, out string errText) {
+            errText = "";
+            if (id == null || id == Guid.Empty || string.IsNullOrEmpty(name)) {
+                errText = "用户信息不可为空！";
+                return null;
+            }
+            if (start > end) {
+                errText = "开始时间不能大于结束时间！";
+                return null;
+            }
+            try {
+                using (SqlConnection conn = new SqlConnection(SQL_CON)) {
+                    var sql = "select Record,TestTime,HighestScore from UserRecord where UserId=@Id and Name=@Name and TestTime >=@StartDate and TestTime<=@EndDate";
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("Name", name);
+                    cmd.Parameters.AddWithValue("Id", id);
+                    cmd.Parameters.AddWithValue("StartDate", start);
+                    cmd.Parameters.AddWithValue("EndDate", end);
+                    SqlDataAdapter ada = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    ada.Fill(dt);
+                    return dt;
+                }
+
+            } catch (Exception ex) {
+                errText = ex.Message;
+                return null;
+            }
+        }
     }
 }

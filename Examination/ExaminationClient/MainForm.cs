@@ -95,6 +95,14 @@ namespace ExaminationClient {
         }
         #endregion
 
-        
+        private void menuItemCruve_Click(object sender, EventArgs e) {
+            StudyCruveCtrl ctrl = new StudyCruveCtrl();
+            ChangeFormTo(ctrl);
+        }
+
+        private void menuItemList_Click(object sender, EventArgs e) {
+            StudyRankingListCtrl ctrl = new StudyRankingListCtrl();
+            ChangeFormTo(ctrl);
+        }
     }
 }

@@ -52,6 +52,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -113,6 +114,18 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ServiceWindow.cs" />
+    <Compile Include="StudyCruveCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StudyCruveCtrl.Designer.cs">
+      <DependentUpon>StudyCruveCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubjectResultCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubjectResultCtrl.Designer.cs">
+      <DependentUpon>SubjectResultCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserRegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +159,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StudyCruveCtrl.resx">
+      <DependentUpon>StudyCruveCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubjectResultCtrl.resx">
+      <DependentUpon>SubjectResultCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserRegisterForm.resx">
       <DependentUpon>UserRegisterForm.cs</DependentUpon>
     </EmbeddedResource>

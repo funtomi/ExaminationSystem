@@ -1,6 +1,7 @@
 ﻿using ExaminationEntity;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -28,6 +29,9 @@ namespace WcfServiceLibrary1 {
 
         [OperationContract]
         bool SaveScore(Guid id, string name, int score, int subNum, string subLevel, out string errText);
+
+        [OperationContract]
+        DataTable GetStudyData(Guid id, string name, DateTime start, DateTime end, out string errText);
     }
 
     // 使用下面示例中说明的数据约定将复合类型添加到服务操作。

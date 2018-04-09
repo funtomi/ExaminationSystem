@@ -76,12 +76,14 @@
             this.menuItemCruve.Name = "menuItemCruve";
             this.menuItemCruve.Size = new System.Drawing.Size(180, 26);
             this.menuItemCruve.Text = "学习进步曲线";
+            this.menuItemCruve.Click += new System.EventHandler(this.menuItemCruve_Click);
             // 
             // menuItemList
             // 
             this.menuItemList.Name = "menuItemList";
             this.menuItemList.Size = new System.Drawing.Size(180, 26);
             this.menuItemList.Text = "学习排行榜";
+            this.menuItemList.Click += new System.EventHandler(this.menuItemList_Click);
             // 
             // panelChild
             // 
