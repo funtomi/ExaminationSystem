@@ -13,16 +13,7 @@ using System.Text;
 namespace WcfServiceLibrary1 {
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的类名“Service1”。
     public class Service1 : IService1 {
-        private static string SQL_CON = ConfigurationManager.AppSettings["sqlCon"];
-        public CompositeType GetDataUsingDataContract(CompositeType composite) {
-            if (composite == null) {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue) {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
+        private static string SQL_CON = ConfigurationManager.AppSettings["sqlCon"]; 
 
         /// <summary>
         /// 用户注册
@@ -221,21 +212,18 @@ namespace WcfServiceLibrary1 {
             try {
                 using (SqlConnection conn = new SqlConnection(SQL_CON)) {
                     conn.Open();
-                    var sql = "declare @HighestScore int "
-                          + "set @HighestScore = (select MAX(Record)  from UserRecord where UserId=@UserId) "
-                        + "insert into UserRecord (Id,UserId,Name,Record,TestTime,SubjectNum,SubjectLevel,TestTimes,HighestScore)" +
-                            "values(@Id,@UserId,@Name,@Record,SYSDATETIME(),@SubjectNum,@SubjectLevel," +
-                              "(select COUNT(Name) from UserRecord where UserId=@UserId)+1," +
-                        "(select num=case when @HighestScore>=@Record then @HighestScore when @HighestScore<@Record then @Record else @Record end ))";
+                    var sql = "insert into UserRecord (Id,UserId,Name,Record,TestTime,SubjectNum,SubjectLevel)" +
+                            "values(@Id,@UserId,@Name,@Record,SYSDATETIME(),@SubjectNum,@SubjectLevel)";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@Id", Guid.NewGuid());
                     cmd.Parameters.AddWithValue("@UserId", id);
-                    cmd.Parameters.AddWithValue("Name", name);
+                    cmd.Parameters.AddWithValue("@Name", name);
                     cmd.Parameters.AddWithValue("@Record", score);
                     cmd.Parameters.AddWithValue("SubjectNum", subNum);
                     cmd.Parameters.AddWithValue("@SubjectLevel", subLevel);
                     cmd.ExecuteNonQuery();
                     conn.Close();
+                    SaveStudyRecord(id,name,score,out errText);
                     return true;
                 }
             } catch (Exception ex) {
@@ -244,6 +232,81 @@ namespace WcfServiceLibrary1 {
             }
         }
 
+        /// <summary>
+        /// 保存考试记录
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="score"></param>
+        /// <param name="errText"></param>
+        private void SaveStudyRecord(Guid id, string name, int score, out string errText) {
+            errText = "";
+            if (id==null||string.IsNullOrEmpty(name)) {
+                errText = "找不到目标用户！";
+                return;
+            }
+            try {
+                using (SqlConnection conn = new SqlConnection(SQL_CON)) {
+
+                    string sql;
+                    if (HasUserRecord(id)) {
+                        sql = "declare @HighestScore int"
+                     + "set @HighestScore = (select HighestScore from StudyRecord where UserId=@UserId)"
+                    + "update StudyRecord set HighestScore=(select num=case when @HighestScore>=@Score then @HighestScore when @HighestScore<@Score then @Score end ),"
+                    + "TestTimes=TestTimes+1,LastTestTime=SYSDATETIME()";
+
+                    } else {
+                        sql = "insert into StudyRecord(Id,UserId,UserName,HighestScore,TestTimes,LastTestTime) "
+                  + " values(@Id,@UserId,@UserName,@Score,1,SYSDATETIME())";
+                    }
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@Id", Guid.NewGuid());
+                    cmd.Parameters.AddWithValue("@UserId", id);
+                    cmd.Parameters.AddWithValue("@UserName", name);
+                    cmd.Parameters.AddWithValue("@Score", score);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return;
+                }
+            } catch (Exception ex) {
+                errText = ex.Message;
+                return;
+            }
+        }
+
+        /// <summary>
+        /// 是否存在记录
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private bool HasUserRecord(Guid id) {
+            if (id==null) {
+                return false;
+            }
+            try {
+                using (SqlConnection conn= new SqlConnection(SQL_CON)) {
+                    conn.Open();
+                    var sql = "select * from StudyRecord where UserId=@Id";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@Id",id);
+                    var re = cmd.ExecuteScalar();
+                    conn.Close();
+                    return re != null;
+                }
+            } catch (Exception) {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获取考试记录
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="errText"></param>
+        /// <returns></returns>
         public DataTable GetStudyData(Guid id, string name, DateTime start, DateTime end, out string errText) {
             errText = "";
             if (id == null || id == Guid.Empty || string.IsNullOrEmpty(name)) {
@@ -273,6 +336,28 @@ namespace WcfServiceLibrary1 {
                 errText = ex.Message;
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 获取排行榜
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetStudyRankingList() {
+            try {
+                using (SqlConnection conn = new SqlConnection(SQL_CON)) {
+                    conn.Open();
+                    var sql = " select top 100 ROW_NUMBER() over(order by HighestScore) as Ranking,UserName,HighestScore,TestTimes,LastTestTime,UserId from StudyRecord order by HighestScore desc";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    SqlDataAdapter ada = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    ada.Fill(dt);
+                    conn.Close();
+                    return dt;
+                }
+            } catch (Exception) {
+                throw;
+            }
+            return null;            
         }
     }
 }

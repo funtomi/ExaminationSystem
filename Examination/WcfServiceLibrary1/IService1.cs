@@ -32,25 +32,9 @@ namespace WcfServiceLibrary1 {
 
         [OperationContract]
         DataTable GetStudyData(Guid id, string name, DateTime start, DateTime end, out string errText);
+
+        [OperationContract]
+        DataTable GetStudyRankingList();
     }
-
-    // 使用下面示例中说明的数据约定将复合类型添加到服务操作。
-    // 可以将 XSD 文件添加到项目中。在生成项目后，可以通过命名空间“WcfServiceLibrary1.ContractType”直接使用其中定义的数据类型。
-    [DataContract]
-    public class CompositeType {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
-    }
+     
 }

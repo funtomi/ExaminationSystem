@@ -61,6 +61,12 @@ namespace ExaminationClient.ServiceReference1 {
         // CODEGEN: 正在生成消息协定，应为该操作具有多个返回值。
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudyData", ReplyAction="http://tempuri.org/IService1/GetStudyDataResponse")]
         System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.GetStudyDataResponse> GetStudyDataAsync(ExaminationClient.ServiceReference1.GetStudyDataRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudyRankingList", ReplyAction="http://tempuri.org/IService1/GetStudyRankingListResponse")]
+        System.Data.DataTable GetStudyRankingList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudyRankingList", ReplyAction="http://tempuri.org/IService1/GetStudyRankingListResponse")]
+        System.Threading.Tasks.Task<System.Data.DataTable> GetStudyRankingListAsync();
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -429,6 +435,14 @@ namespace ExaminationClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<ExaminationClient.ServiceReference1.GetStudyDataResponse> GetStudyDataAsync(ExaminationClient.ServiceReference1.GetStudyDataRequest request) {
             return base.Channel.GetStudyDataAsync(request);
+        }
+        
+        public System.Data.DataTable GetStudyRankingList() {
+            return base.Channel.GetStudyRankingList();
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataTable> GetStudyRankingListAsync() {
+            return base.Channel.GetStudyRankingListAsync();
         }
     }
 }

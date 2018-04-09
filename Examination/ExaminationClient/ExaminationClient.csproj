@@ -120,6 +120,12 @@
     <Compile Include="StudyCruveCtrl.Designer.cs">
       <DependentUpon>StudyCruveCtrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="StudyRankingListCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StudyRankingListCtrl.Designer.cs">
+      <DependentUpon>StudyRankingListCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubjectResultCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     <EmbeddedResource Include="StudyCruveCtrl.resx">
       <DependentUpon>StudyCruveCtrl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="StudyRankingListCtrl.resx">
+      <DependentUpon>StudyRankingListCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubjectResultCtrl.resx">
       <DependentUpon>SubjectResultCtrl.cs</DependentUpon>
     </EmbeddedResource>
@@ -169,6 +178,7 @@
       <DependentUpon>UserRegisterForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\ExaminationEntity.SubjectInfo.datasource" />
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -178,6 +188,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\ServiceReference1\ExaminationClient.ServiceReference1.GetStudyDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ServiceReference1\ExaminationClient.ServiceReference1.GetSubjectsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -204,6 +217,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceReference1\Service131.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\Service132.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
