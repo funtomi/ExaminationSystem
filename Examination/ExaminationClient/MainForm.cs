@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExaminationEntity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace ExaminationClient {
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
+            this.skinEngine1.SkinFile = "MSN.ssk";
+
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.  
             SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲  
@@ -43,7 +46,6 @@ namespace ExaminationClient {
 
         #region 事件
         private void BaseForm_Load(object sender, EventArgs e) {
-            this.skinEngine1.SkinFile = "MSN.ssk";
            
         }
 
@@ -59,12 +61,12 @@ namespace ExaminationClient {
             ChangeFormTo(ctrl);
         }
 
-        private void ExaminationSelectCtrl_StartExamEvent(string subType, string subLevel, int subNum,int examTime) {
-            if (string.IsNullOrEmpty(subType)||string.IsNullOrEmpty(subLevel)) {
+        private void ExaminationSelectCtrl_StartExamEvent(string subType, SubjectInfo[] subjectInfos, int examTime) {
+            if (string.IsNullOrEmpty(subType) || subjectInfos == null || subjectInfos.Length == 0) {
                 MessageBox.Show("题目选择不能为空！");
                 return;
             }
-            ExaminationCtrl ctrl = new ExaminationCtrl(subType, subLevel, subNum, examTime);
+            ExaminationCtrl ctrl = new ExaminationCtrl(subType, subjectInfos, examTime);
             ctrl.SubmitEvent += new ExaminationCtrl.SubmitEventDelegate(ExaminationCtrl_SubmitEvent);
             ChangeFormTo(ctrl);
         }
@@ -82,6 +84,10 @@ namespace ExaminationClient {
         }
 
         private void SubjectRedoEventHandle(ExamSubjectCtrl[] examSubCtrls) {
+            if (examSubCtrls==null||examSubCtrls.Length==0) {
+                MessageBox.Show("没有错题！");
+                return;
+            }
             ExaminationCtrl ctrl = new ExaminationCtrl(examSubCtrls);
             ctrl.ResultEvent += new ExaminationCtrl.ResultEventDelegate(ResultEventHandle);
             ChangeFormTo(ctrl);

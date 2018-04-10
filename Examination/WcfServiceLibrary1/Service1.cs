@@ -36,9 +36,9 @@ namespace WcfServiceLibrary1 {
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@Name", name);
                     cmd.Parameters.AddWithValue("@Password", password);
-                    var id = cmd.ExecuteScalar().ToString();
-                    if (string.IsNullOrEmpty(id)) {
-                        userId = Guid.Parse(id);
+                    var id = cmd.ExecuteScalar();
+                    if (id!=null) {
+                        userId = Guid.Parse(id.ToString());
                         return true;
                     }
                     errText = "用户名或密码错误，请检查！";
@@ -247,10 +247,10 @@ namespace WcfServiceLibrary1 {
             }
             try {
                 using (SqlConnection conn = new SqlConnection(SQL_CON)) {
-
+                    conn.Open();
                     string sql;
                     if (HasUserRecord(id)) {
-                        sql = "declare @HighestScore int"
+                        sql = "declare @HighestScore int "
                      + "set @HighestScore = (select HighestScore from StudyRecord where UserId=@UserId)"
                     + "update StudyRecord set HighestScore=(select num=case when @HighestScore>=@Score then @HighestScore when @HighestScore<@Score then @Score end ),"
                     + "TestTimes=TestTimes+1,LastTestTime=SYSDATETIME()";
@@ -325,9 +325,9 @@ namespace WcfServiceLibrary1 {
                     cmd.Parameters.AddWithValue("Name", name);
                     cmd.Parameters.AddWithValue("Id", id);
                     cmd.Parameters.AddWithValue("StartDate", start);
-                    cmd.Parameters.AddWithValue("EndDate", end);
+                    cmd.Parameters.AddWithValue("EndDate", end.AddSeconds(86400));
                     SqlDataAdapter ada = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
+                    DataTable dt = new DataTable("Data");
                     ada.Fill(dt);
                     return dt;
                 }
@@ -346,18 +346,17 @@ namespace WcfServiceLibrary1 {
             try {
                 using (SqlConnection conn = new SqlConnection(SQL_CON)) {
                     conn.Open();
-                    var sql = " select top 100 ROW_NUMBER() over(order by HighestScore) as Ranking,UserName,HighestScore,TestTimes,LastTestTime,UserId from StudyRecord order by HighestScore desc";
+                    var sql = " select top 100 ROW_NUMBER() over(order by HighestScore) as Ranking,UserName,HighestScore,TestTimes,LastTestTime,UserId from StudyRecord order by HighestScore";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     SqlDataAdapter ada = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
+                    DataTable dt = new DataTable("Data");
                     ada.Fill(dt);
                     conn.Close();
                     return dt;
                 }
             } catch (Exception) {
                 throw;
-            }
-            return null;            
+            }            
         }
     }
 }

@@ -28,6 +28,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.panelSelect = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rdBtnD = new System.Windows.Forms.RadioButton();
@@ -37,7 +38,6 @@
             this.panelCompletion = new System.Windows.Forms.Panel();
             this.txtboxResult = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.panelSelect.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelCompletion.SuspendLayout();
@@ -84,15 +84,26 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("微软雅黑", 12.10084F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTitle.Location = new System.Drawing.Point(26, 24);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(92, 27);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "选择题：";
+            // 
             // panelSelect
             // 
             this.panelSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelSelect.AutoScroll = true;
             this.panelSelect.Controls.Add(this.groupBox1);
             this.panelSelect.Location = new System.Drawing.Point(31, 160);
             this.panelSelect.Name = "panelSelect";
-            this.panelSelect.Size = new System.Drawing.Size(555, 206);
+            this.panelSelect.Size = new System.Drawing.Size(555, 340);
             this.panelSelect.TabIndex = 1;
             // 
             // groupBox1
@@ -106,7 +117,7 @@
             this.groupBox1.Controls.Add(this.rdBtnA);
             this.groupBox1.Location = new System.Drawing.Point(19, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(517, 169);
+            this.groupBox1.Size = new System.Drawing.Size(517, 309);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "选项：";
@@ -114,7 +125,7 @@
             // rdBtnD
             // 
             this.rdBtnD.AutoSize = true;
-            this.rdBtnD.Location = new System.Drawing.Point(259, 99);
+            this.rdBtnD.Location = new System.Drawing.Point(255, 118);
             this.rdBtnD.Name = "rdBtnD";
             this.rdBtnD.Size = new System.Drawing.Size(14, 13);
             this.rdBtnD.TabIndex = 3;
@@ -125,7 +136,7 @@
             // rdBtnC
             // 
             this.rdBtnC.AutoSize = true;
-            this.rdBtnC.Location = new System.Drawing.Point(29, 99);
+            this.rdBtnC.Location = new System.Drawing.Point(29, 111);
             this.rdBtnC.Name = "rdBtnC";
             this.rdBtnC.Size = new System.Drawing.Size(14, 13);
             this.rdBtnC.TabIndex = 2;
@@ -136,7 +147,7 @@
             // rdBtnB
             // 
             this.rdBtnB.AutoSize = true;
-            this.rdBtnB.Location = new System.Drawing.Point(259, 34);
+            this.rdBtnB.Location = new System.Drawing.Point(255, 41);
             this.rdBtnB.Name = "rdBtnB";
             this.rdBtnB.Size = new System.Drawing.Size(14, 13);
             this.rdBtnB.TabIndex = 1;
@@ -164,16 +175,20 @@
             this.panelCompletion.Controls.Add(this.label3);
             this.panelCompletion.Location = new System.Drawing.Point(28, 157);
             this.panelCompletion.Name = "panelCompletion";
-            this.panelCompletion.Size = new System.Drawing.Size(555, 206);
+            this.panelCompletion.Size = new System.Drawing.Size(555, 360);
             this.panelCompletion.TabIndex = 2;
             // 
             // txtboxResult
             // 
+            this.txtboxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtboxResult.Location = new System.Drawing.Point(33, 51);
             this.txtboxResult.Multiline = true;
             this.txtboxResult.Name = "txtboxResult";
-            this.txtboxResult.Size = new System.Drawing.Size(497, 101);
+            this.txtboxResult.Size = new System.Drawing.Size(497, 292);
             this.txtboxResult.TabIndex = 1;
+            this.txtboxResult.TextChanged += new System.EventHandler(this.txtboxResult_TextChanged);
             // 
             // label3
             // 
@@ -184,16 +199,6 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "答案：";
             // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("微软雅黑", 12.10084F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblTitle.Location = new System.Drawing.Point(26, 24);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(92, 27);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "选择题：";
-            // 
             // ExamSubjectCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -202,11 +207,11 @@
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.panelCompletion);
             this.Controls.Add(this.panelSelect);
+            this.Controls.Add(this.panelCompletion);
             this.Font = new System.Drawing.Font("微软雅黑", 9.07563F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "ExamSubjectCtrl";
-            this.Size = new System.Drawing.Size(617, 397);
+            this.Size = new System.Drawing.Size(617, 548);
             this.Load += new System.EventHandler(this.ExamSubjectCtrl_Load);
             this.panelSelect.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

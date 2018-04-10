@@ -46,8 +46,6 @@
             // 
             // cmboxSubType
             // 
-            this.cmboxSubType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmboxSubType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmboxSubType.Font = new System.Drawing.Font("微软雅黑", 9.07563F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmboxSubType.FormattingEnabled = true;
@@ -68,8 +66,6 @@
             // 
             // cmboxSubLevel
             // 
-            this.cmboxSubLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmboxSubLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmboxSubLevel.Font = new System.Drawing.Font("微软雅黑", 9.07563F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmboxSubLevel.FormattingEnabled = true;
@@ -90,8 +86,6 @@
             // 
             // txtBoxSubNumber
             // 
-            this.txtBoxSubNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBoxSubNumber.Font = new System.Drawing.Font("微软雅黑", 9.07563F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtBoxSubNumber.Location = new System.Drawing.Point(167, 141);
             this.txtBoxSubNumber.Name = "txtBoxSubNumber";
@@ -101,7 +95,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnStart.Font = new System.Drawing.Font("微软雅黑", 9.07563F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnStart.Location = new System.Drawing.Point(222, 253);
             this.btnStart.Name = "btnStart";
@@ -123,8 +117,6 @@
             // 
             // txtboxExamTime
             // 
-            this.txtboxExamTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtboxExamTime.Font = new System.Drawing.Font("微软雅黑", 9.07563F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtboxExamTime.Location = new System.Drawing.Point(167, 194);
             this.txtboxExamTime.Name = "txtboxExamTime";

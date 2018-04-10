@@ -19,17 +19,12 @@ namespace ExaminationClient {
         WaveOut _wavePlayer;
         public string Result {
             get {
-                if (_subjectInfo==null||string.IsNullOrEmpty(_subjectInfo.SubType)) {
+                if (_subjectInfo == null || string.IsNullOrEmpty(_subjectInfo.SubType)) {
                     return "";
                 }
-                switch (_subjectInfo.SubType) {
-                    case "选择题":
-                        return _result;
-                    case "填空题":
-                        return this.txtboxResult.Text;
-                }
-                return "";
+                return _result;
             }
+            set { _result = value; }
         }
         private string _result;
         public ExamSubjectCtrl() {
@@ -154,6 +149,15 @@ namespace ExaminationClient {
             _result = text.Substring(0, 1);
         }
         #endregion
+
+        private void txtboxResult_TextChanged(object sender, EventArgs e) {
+            var text = this.txtboxResult.Text;
+            if (string.IsNullOrEmpty(text)) {
+                _result = "";
+                return;
+            }
+            _result = text;
+        }
          
         
     }

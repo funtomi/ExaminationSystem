@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExaminationEntity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,7 +17,7 @@ namespace ExaminationClient {
             SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲 
         }
 
-        public delegate void StartExamEventDelegate(string subType,string subLevel,int subNum,int examTime);
+        public delegate void StartExamEventDelegate(string subType, SubjectInfo[] subjectInfos, int examTime);
         public StartExamEventDelegate StartExamEventHandel;
 
         /// <summary>
@@ -67,9 +68,18 @@ namespace ExaminationClient {
             if (!InputValidator()) {
                 return;
             }
+            var subNum = Convert.ToInt32(this.txtBoxSubNumber.Text);
+            var subLevel = this.cmboxSubLevel.SelectedValue.ToString();
+            var subType = this.cmboxSubType.SelectedValue.ToString();
+            var examTime = Convert.ToInt32(this.txtboxExamTime.Text);
+            string errText;
+            var list = ServiceWindow.Service.GetSubjects(subNum, subLevel, subType, out errText);
+            if (list == null || list.Length == 0) {
+                MessageBox.Show("没有对应的考试题目，请重新选择!");
+                return;
+            }
             if (StartExamEventHandel != null) {
-                StartExamEventHandel(this.cmboxSubType.SelectedValue.ToString(), this.cmboxSubLevel.SelectedValue.ToString(),
-                    Convert.ToInt32(this.txtBoxSubNumber.Text),Convert.ToInt32(this.txtboxExamTime.Text));
+                StartExamEventHandel(subType, list, examTime);
             }
         }
 

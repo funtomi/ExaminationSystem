@@ -74,14 +74,14 @@
             // menuItemCruve
             // 
             this.menuItemCruve.Name = "menuItemCruve";
-            this.menuItemCruve.Size = new System.Drawing.Size(180, 26);
+            this.menuItemCruve.Size = new System.Drawing.Size(174, 26);
             this.menuItemCruve.Text = "学习进步曲线";
             this.menuItemCruve.Click += new System.EventHandler(this.menuItemCruve_Click);
             // 
             // menuItemList
             // 
             this.menuItemList.Name = "menuItemList";
-            this.menuItemList.Size = new System.Drawing.Size(180, 26);
+            this.menuItemList.Size = new System.Drawing.Size(174, 26);
             this.menuItemList.Text = "学习排行榜";
             this.menuItemList.Click += new System.EventHandler(this.menuItemList_Click);
             // 
@@ -93,20 +93,21 @@
             this.panelChild.AutoScroll = true;
             this.panelChild.Location = new System.Drawing.Point(12, 31);
             this.panelChild.Name = "panelChild";
-            this.panelChild.Size = new System.Drawing.Size(960, 506);
+            this.panelChild.Size = new System.Drawing.Size(960, 647);
             this.panelChild.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 549);
+            this.ClientSize = new System.Drawing.Size(984, 690);
             this.Controls.Add(this.panelChild);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "英语听力与会话智能训练系统";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BaseForm_FormClosed);
             this.Load += new System.EventHandler(this.BaseForm_Load);

@@ -219,6 +219,7 @@
             // 
             // cmboxResult
             // 
+            this.cmboxResult.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmboxResult.FormattingEnabled = true;
             this.cmboxResult.Items.AddRange(new object[] {
             "A",
@@ -369,8 +370,8 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtBoxAbstract);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.panelCompletion);
             this.Controls.Add(this.panelSelect);
+            this.Controls.Add(this.panelCompletion);
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(600, 597);
             this.Name = "SubjectAddCtrl";

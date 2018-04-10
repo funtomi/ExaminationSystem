@@ -26,11 +26,17 @@ namespace ExaminationClient {
             _examTime = examTime;
         }
 
-        public ExamResultCtrl(ExamSubjectCtrl[] ctrls) {
+        public ExamResultCtrl(ExamSubjectCtrl[] ctrls)
+            : this() {
             this._ctrls = ctrls;
             _subType = "错题重做";
-            this.label4.Visible = false;
-            this.lblExamTime.Visible = false;
+            if (this.label4 != null) {
+                this.label4.Visible = false;
+
+            }
+            if (this.lblExamTime != null) {
+                this.lblExamTime.Visible = false;
+            }
         }
 
         /// <summary>
@@ -43,7 +49,7 @@ namespace ExaminationClient {
                 return;
             }
             this.lblScore.Text = score.ToString();
-            this.lblScore.Width = (score / 100) * this.lblSumScore.Width;
+            this.lblScoreColor.Width = Convert.ToInt32((double)score / 100 * this.lblSumScore.Width);
         }
 
         /// <summary>
@@ -81,7 +87,7 @@ namespace ExaminationClient {
                 }
                 _errCtrls.Add(ctrl);
             }
-            return rightNum / _ctrls.Length;
+            return Convert.ToInt32(100*(double)rightNum / _ctrls.Length);
         }
         #region 事件
         private void ExamResultCtrl_Load(object sender, EventArgs e) {

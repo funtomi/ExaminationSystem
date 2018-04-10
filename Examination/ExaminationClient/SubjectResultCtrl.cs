@@ -19,7 +19,7 @@ namespace ExaminationClient {
             InitializeComponent();
         }
 
-        public SubjectResultCtrl(ExamSubjectCtrl[] examSubCtrls) {
+        public SubjectResultCtrl(ExamSubjectCtrl[] examSubCtrls) :this(){
             // TODO: Complete member initialization
             this._examSubCtrls = examSubCtrls;
             
@@ -39,22 +39,23 @@ namespace ExaminationClient {
             for (int i = 1; i < _examSubCtrls.Length + 1; i++) {
                 this.cmboxSubSeq.Items.Add(i);
             }
+            this.cmboxSubSeq.SelectedIndex = 0;
             SetCurrentSubject(0);
         }
 
         private void btnPreview_Click(object sender, EventArgs e) {
-            var i = Convert.ToInt32(this.cmboxSubSeq.Text);
-            if (i<=1) {
+            var i = this.cmboxSubSeq.SelectedIndex;
+            if (i<=0) { 
                 return;
-            }
+            } 
             SetCurrentSubject(--i);
         }
 
         private void btnNext_Click(object sender, EventArgs e) {
-            var i = Convert.ToInt32(this.cmboxSubSeq.Text);
-            if (i>=_examSubCtrls.Length) {
+            var i = this.cmboxSubSeq.SelectedIndex;
+            if (i>=_examSubCtrls.Length-1) { 
                 return;
-            }
+            } 
             SetCurrentSubject(++i);
         }
 
@@ -73,7 +74,7 @@ namespace ExaminationClient {
         }
 
         private void cmboxSubSeq_SelectedIndexChanged(object sender, EventArgs e) {
-            var i = Convert.ToInt32(this.cmboxSubSeq.Text);
+            var i = this.cmboxSubSeq.SelectedIndex;
             SetCurrentSubject(i);
         }
         #endregion
@@ -83,8 +84,10 @@ namespace ExaminationClient {
         /// </summary>
         /// <param name="i"></param>
         private void SetCurrentSubject(int i) {
+            this.btnNext.Enabled = this.btnPreview.Enabled = false;
+
             ClearCurrentSubject();
-            if (_examSubCtrls==null||_examSubCtrls.Length==0||i>=_examSubCtrls.Length||_examSubCtrls[i]==null) {
+            if (i<0||_examSubCtrls == null || _examSubCtrls.Length == 0 || i >= _examSubCtrls.Length || _examSubCtrls[i] == null) {
                 return;
             } 
             var currentSub = _examSubCtrls[i].SubjectInfo;
@@ -95,6 +98,9 @@ namespace ExaminationClient {
             this.lblAbstract.Text = currentSub.Abstract;
             this.lblResult.Text = currentSub.Result;
             _currentSub = currentSub;
+            this.btnNext.Enabled = i < _examSubCtrls.Length - 1;
+            this.btnPreview.Enabled = i > 0;
+            this.cmboxSubSeq.SelectedIndex = i;
         }
 
         /// <summary>

@@ -19,17 +19,17 @@ namespace ExaminationClient {
         private Series CreateSeries() {
             Series series = new Series("学习进步曲线", 100);
             series.ChartArea = "ChartArea1";
-            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series.Font = new System.Drawing.Font("微软雅黑", 7.865546F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series.Legend = "Legend1";
-            series.LegendText = "最高分";
+            series.LegendText = "得分";
             series.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             return series;
         }
 
         private void btnSearch_Click(object sender, EventArgs e) {
             ClearView();
-            if (!DateValidator()) {
+            if (DateValidator()) {
                 var series = CreateSeries();
                 string errText = "";
                 var startDate = DateTime.Parse(this.dtPickerStart.Text);
